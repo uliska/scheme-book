@@ -1,0 +1,8 @@
+# our custom plugin should not be copied although it's tracked by Git
+node_modules/gitbook-plugin-lilypond-styles
+
+# python scripts are not to be copied
+python
+
+# the Git hook doesn't belong to the book either
+githooks

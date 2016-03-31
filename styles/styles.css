@@ -1,0 +1,78 @@
+/*
+  Additional styles for the "openLilylib Book"
+*/
+
+/* General styling */
+
+/*
+  Specific objects
+*/
+
+/* General box layout
+   For some reasons it doesn't seem to work when specifying this
+   as a generic class. Maybe GitBook adds an additional <p> before the <div>,
+   and somehow this paragraph takes up space.
+ */
+#authors,
+#credits {
+  background-color: #eee;
+  border: 2px #ccc solid;
+  padding: 0;
+}
+
+#authors h1,
+#credits h1 {
+  font-size: 100%;
+  background-color: #ccc;
+  margin: 0;
+  padding: 0.25em 10px 0.5em;
+}
+
+#authors .inner-box,
+#credits .inner-box {
+  padding: 1em 10px;
+}
+
+/* Effective if the authors block has some descriptive content */
+#authors .inner-box .details,
+#credits .inner-box .details  {
+  margin-top: 0.75em;
+  font-style: italic;
+}
+
+/* Author(s) box */
+/* Display the list of authors horizontally */
+#authors .inner-box ul {
+  margin: -0.5em 0 0 -1em; /* do not indent first entry */
+  padding: 0;
+  list-style-type: none;
+  text-align: left;
+}
+
+#authors .inner-box ul li {
+   display: inline;
+   font-weight: bold;
+   padding-left: 1em;
+   padding-right: 1em;
+   border-right: 1px #aaa solid;
+}
+
+/* End author's box */
+
+/* Image with caption */
+div .image-with-caption {
+  text-align: center;
+  padding-top: 1em;
+}
+
+div .image-with-caption .image {
+
+}
+
+div .image-with-caption .caption {
+  font-style: italic;
+  color: #444;
+  padding-top: 1ex;
+}
+
+/* End of image with caption */

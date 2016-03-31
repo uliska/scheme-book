@@ -1,0 +1,40 @@
+#!/bin/bash
+
+
+
+# Configuration
+BASE_URL=http://bookbranches.openlilylib.org
+DOC_ROOT=/var/www/vhosts/bookbranches.openlilylib.org
+
+cd $DOC_ROOT
+
+echo "Reading available \"bookbranches\" domains."
+
+echo "<html><head>" > index.html
+echo "<title>The openLilyLib Book - Checked Out Bookbranches</title></head>" >> index.html
+echo "<body>" >> index.html
+echo "<h1>The openLilyLib Book</h1><h3>Checked out test branch sites</h3>" >> index.html
+echo "<ul>" >> index.html
+
+# iterate over sites
+for branch in */; do
+  if [[ $(ls $branch | wc -l) == 0 ]]; then
+    rmdir $branch
+    continue
+  fi
+  # go into subdirectory for branch
+  cd ${branch::-1}
+  if [[ $(find ./ -maxdepth 1 -name index.html | wc -l) == 0 ]]; then
+    # No "index.html" found so we must look for subbranch directories
+    echo "<li>$branch" >> ../index.html
+    echo "<ul>" >> ../index.html
+    for subbranch in */; do
+      echo "<li><a href=\"$BASE_URL/$branch$subbranch\">$subbranch</a></li>" >> ../index.html
+    done
+    echo "</ul></li>" >> ../index.html
+  else
+    echo "<li><a href=\"$BASE_URL/$branch\">$branch</a></li>" >> ../index.html
+  fi
+  cd ..
+done
+echo "</ul></body></html>" >> index.html

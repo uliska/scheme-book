@@ -1,0 +1,15 @@
+{
+    "styles": {
+        "website": "styles/website.css",
+        "ebook": "styles/ebook.css"
+    },
+    "plugins": ["lilypond-styles",
+        "fullsize-image",
+        "expandable-chapters"],
+    "pluginsConfig": {
+      "edit-link": {
+        "base": "https://git.openlilylib.org/oll/book/edit/[master]",
+        "label": "Edit online"
+      }
+    }
+}

@@ -1,0 +1,117 @@
+#!/bin/bash
+# Post-receive hook for openlilylib/book.git
+#
+# This hook will do a few things, iterating over all pushed branches:
+# - checkout the branch to a temporary directory
+# - call gitbook to build that branch's version of The Book
+# - copy the build to the webspace
+#
+# If it is the 'master' branch it will be deployed to the main site,
+# any other branch will be deployed to a subdirectory in a
+# 'branches' subdomain.
+# If a branch is deleted (i.e. an empty branch is pushed) the corresponding
+# directory in the webspace is deleted.
+
+echo
+echo "This is the openlilylib/book post-receive hook on git.openlilylib.org"
+echo "Process all pushed branches (including deletions)."
+echo
+
+#############################
+# Set configuration variables
+#############################
+
+# Root directory of the book repository
+GIT_REPO=$(pwd)
+
+# The home directory must be set manually
+# because we're running in a limited environment
+HOME_DIR=/var/opt/gitlab
+
+# Directory where the branch is checked out
+# and where Gitbook will run
+CHECKOUT_DIR=$HOME_DIR/oll-book-checkout
+
+# Root directory on the server
+WEBROOT=/var/www/vhosts
+
+# Domains for deployment.
+# It is expected that they live in WEBROOT subdirectories
+# of exactly the same name
+BOOK_DOMAIN=book.openlilylib.org
+BRANCHES_DOMAIN=bookbranches.openlilylib.org
+
+# Path to the python-ly library.
+# This is necessary for syntax highlighting
+PYTHON_LY_PATH=/home/uliska/git/lilypond/python-ly
+
+####################################
+# Main loop over the pushed branches
+####################################
+
+while read oldref newref refname
+do
+  cd $GIT_REPO
+
+  # $refname is refs/heads/BRANCH
+  BRANCH=${refname:11}
+
+  # If the branch is deleted only delete the files from the webspace
+  if [[ "$newref" == "0000000000000000000000000000000000000000" ]]; then
+    echo "Branch \"$BRANCH\" has been deleted."
+    DELETE_DIR="$WEBROOT/$BRANCHES_DOMAIN/$BRANCH"
+    echo "Remove corresponding website http://$BRANCES_DOMAIN/$BRANCH now"
+    rm -rf $DELETE_DIR
+    continue
+  fi
+  # Don't need an else because of the continue statement
+
+  echo
+  echo "Processing branch \"$BRANCH\""
+  # Determine the target webspace, depending on whether
+  # we're processing master or a branch.
+  if [[ "$BRANCH" == "master" ]]; then
+    WEBSPACE=$BOOK_DOMAIN
+  else
+    WEBSPACE=$BRANCHES_DOMAIN/$BRANCH
+  fi
+
+  echo "Checking out branch to temporary working directory"
+  git --work-tree=$CHECKOUT_DIR --git-dir=$GIT_REPO checkout -f $BRANCH
+
+  # Reset symbolic branch to 'master',
+  # ('bare' equivalent to checking out)
+  # otherwise subsequent branch deletions would fail
+  git symbolic-ref HEAD refs/heads/master
+
+  echo "==========================="
+  echo "Build the book with Gitbook"
+  echo
+  # call Gitbook, passing the path to python-ly
+  cd $CHECKOUT_DIR
+  env PYTHONPATH=$PYTHON_LY_PATH:$PYTHONPATH gitbook build
+
+  # Synchronize with the webspace
+  # The 'node_modules' directory has to be suppressed because of
+  # a Gitbook issue with conflicting ignore rules
+  # (see https://github.com/GitbookIO/gitbook/issues/931)
+  echo Updating website with rsync
+  mkdir -p $WEBROOT/$WEBSPACE
+  rsync -r --delete --exclude 'node_modules' $CHECKOUT_DIR/_book/ $WEBROOT/$WEBSPACE
+
+  echo "Sync complete."
+  echo "Book URL: http://$WEBSPACE"
+
+done
+
+# End of main loop over branches
+################################
+
+echo
+echo "Processing list of available test websites"
+$HOME_DIR/bin/update-bookbranch-sites
+
+echo "Visit http://$BRANCHES_DOMAIN for a TOC"
+echo
+echo Done. Post-receive hook completed.
+echo

@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+# Colorize LilyPond code and return HTML
+# Initial version without *any* security or sanity checks
+
+# TODO: Is it possible to sanitize the input?
+# TODO: Use argparse or optparse,
+#       make it configurable (so the script is generally useful)
+
+from __future__ import print_function
+
+import os, sys
+
+def produce_html(ly_code):
+    """Create a HtmlWriter from python-ly,
+       configure it and use it to generate the HTML.
+    """
+    try:
+        from ly.colorize import HtmlWriter
+        import ly.document
+    except:
+        return "Something went wrong when importing python-ly code."
+
+    doc = ly.document.Document(ly_code)
+    cursor = ly.document.Cursor(doc)
+    writer = HtmlWriter()
+
+    # Only produce "inner" HTML
+    writer.full_html = False
+
+    # Configure the wrapper tag
+    writer.set_wrapper_tag('pre')
+    writer.set_wrapper_attribute('class')
+    writer.document_id = "lilypond"
+
+    return writer.html(cursor)
+
+# Get the input LilyPond code
+in_ly = sys.argv[1]
+
+# generate styled oudput
+html = produce_html(in_ly)
+
+# the caller will get the result on stdout
+print(html)
