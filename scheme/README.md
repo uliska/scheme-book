@@ -1,81 +1,128 @@
-# LilyPond's Scheme
+# Including Scheme in LilyPond
 
-OK, so now you know that LilyPond uses *Scheme* as its extension language - but
-that statment is only half of the story.  In order not to get (remain?) confused
-it's crucial to have a clear idea of what it actually means.
+The first thing to understand is how - on a very basic level - Scheme code can
+be used in LilyPond documents.  So this is what we will first investigate.
 
-## *What* Is Scheme?
+*Note: With LilyPond 2.19.22 some *substantial* simplifications have been
+introduced in how Scheme can be integrated in LilyPond code.  In case of doubt
+this book will strongly prefer the *new* syntax and exclusively explain this.*
 
-Scheme is a programming language from the
-[Lisp](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29) family of
-languages, which adhere to the paradigm of [functional
-programming](https://en.wikipedia.org/wiki/Functional_programming).  This is
-very different from the concept of [imperative
-programming](https://en.wikipedia.org/wiki/Imperative_programming#History_of_imperative_and_object-oriented_languages)
-which the majority of (non-professional) programmers is more familiar with and
-which is present in languages like Python, JavaScript or (Visual) BASIC, Java or
-the C family of languages.  This makes getting in touch with Scheme challenging
-for many potential users.
+## Switching Between LilyPond and Scheme
 
-## *Which* Scheme?
+In order to insert code in a different language the parser must discern between
+the two layers, which it does through the `#` sign that marks the transition
+from LilyPond to Scheme.  Concretely, whenever the parser encounters this marker
+it will interpret the *immediately following expression* as Scheme code.  (One
+of the following chapters will go into some detail about what an “expression” is
+in Scheme.)
 
-You have to be aware that *Scheme is not (necessarily) Scheme*, as there are
-many Scheme *implementations* around.  In real life this means that when you
-search for “Scheme” solutions on the internet you have to expect that the
-results may not be (completely) compatible with LilyPond.  If you are not fully
-aware of that fact looking for help on the net can be quite off-putting.
+So to insert any Scheme expression into a LilyPond document you have to prepend
+it with `#`.  The best way to understand this is to see it in action.  More or
+less *any* LilyPond user will already have assigned a Scheme value to an
+override:
 
-The Scheme impementation used by LilyPond is the one included in
-[Guile](http://www.gnu.org/software/guile/), which is the official application
-platform and extension language of the [GNU](http://gnu.org) operating and
-software system.  Therefore the official resource for any questions is the [GNU
-Guile Reference
-Manual](https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/), especially
-the [API
-reference](https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/API-Reference.html#API-Reference)
-*(please note that Guile 1.8 is not the current version of Guile, so even web
-searches for “Guile Scheme” may bring up incompatible results)*.  But it has to
-be said that this documentation is suited rather as a *reference* if you are
-already experienced with Scheme.
+{% lilypond %}
+{
+  \once \override DynamicText.extra-offset = #'(2 . 1)
+}
+{% endlilypond %}
 
-Apart from this the only trustworthy resources for Scheme *in LilyPond* are the
-[LilyPond manual](http://lilypond.org/doc/v2.18/Documentation/extending/), this
-book, tutorials on [Scores of Beauty](http://lilypondblog.org) or the
-[lilypond-user](https://lists.gnu.org/mailman/listinfo/lilypond-user) mailing
-list.
+The `#` tells LilyPond's parser to parse one complete Scheme expression, which
+happens to be the *pair* `'(2 . 1)` (the next chapter will go into more details
+about Scheme's data types.)
 
+#### Exceptions
 
-## *How* To Use Scheme in LilyPond?
+LilyPond very much “thinks” like Scheme, and all input will internally be
+converted to Scheme.  Therefore some data types can be entered literally,
+without explicitly switching to Scheme, and the following number assignments are
+equivalent:
 
-A LilyPond user faces challenges on three levels with using Scheme in LilyPond.
+{% lilypond %}
+{
+  \once \override Stem.length = #7.5
+  \once \override Stem.length = 7.5
+}
+{% endlilypond %}
 
-The first is the language itself.  Apart from the structures 
+The same is true for strings *(TODO: should it be explained what a ”string is?)*
+that can additionally be written with or without double quotes (NOTE: in
+LilyPond/Scheme strings *have* to use *double* quotes and not single quotes).
+Again, the following assignments are equivalent:
 
-Using Scheme in LilyPond poses two challenges.  The first (and less intriguing)
-is handling the integration of an extension language in LilyPond input files.
-This works quite smoothly because LilyPond's language itself is parsed in a way
-that is very close to Scheme.  But on the other hand this affinity can make
-things confusing.  We will give particular emphasis on disentangling these
-things in the following chapters.
+{% lilypond %}
+\header {
+  title = #"MyPiece"
+  title = "MyPiece"
+  title = MyPiece
+}
+{% endlilypond %}
 
-The other challenge is the more involved interaction with LilyPond's internals
-that is possible through Scheme.  LilyPond can reveal information about every
-object's most secret properties, and the user can interact very closely with
-these internals.  This is the part where the average LilyPond user tends to give
-up and will even be more confused than informed by the helping hands given by
-more knowledgeable people on the mailing lists.  However, this becomes much more
-accessible once the user has a firm understanding of the fundamentals of Scheme
-and its integration in LilyPond documents.
+ The first one is the “regular” Scheme syntax: switching to Scheme mode, then
+ writing a proper string with quotes.  The other ones are simplifications made
+ possible through LilyPond's own parser.  But in all three cases the *variable*
+ `title` now refers to the *string* `MyPiece`.
 
-The following pages will give the reader an idea about the “look and feel” of
-writing Scheme in LilyPond.  This will make it easier  to understand the later
-sections of this book, other resources about Scheme, and solutions and comments
-provided in the usual LilyPond resources.  In Scheme it is often difficult to
-see the forest for the trees - or with a more specific metaphor: to see the
-expression for the parentheses.  Novice users usually are overwhelmed by the
-need for a different mindset while seasoned users often fail to see the needs of
-those who don't have that mindset yet.
+ There are a few other data types where this is possible, but we will discuss
+ them at a later point.  For now you should only keep in mind that you have to
+ use `#` to switch to Scheme syntax - but not *always*.
 
+#### LilyPond and Scheme variables
 
+Another thing to note is that LilyPond variables are interchangeable with Scheme
+variables in LilyPond input files.  Variables can be defined using either
+syntax:
+
+{% lilypond %}
+\version "2.18.0"
+
+% define a variable using LilyPond syntax
+bpmA = 60
+
+% define a variable using Scheme syntax
+#(define bpmB 72)
+{% endlilypond %}
+
+We have two variables, `bpmA` and `bpmB`, one of which has been entered as a
+LilyPond, the other as a Scheme variable (we'll soon get to the “thing” with the
+parens in Scheme).  But internally they are now the same kind of variable and
+can be accessed in the same way:
+
+{% lilypond %}
+{
+  % assign a tempo using a literal value
+  \tempo 8 = 54
+  R1
+
+  % assign tempos using the variables with LilyPond syntax
+  \tempo 8 = \bpmA
+  R1
+
+  \tempo 8 = \bpmB
+  R1
+}
+{% endlilypond %}
+
+However, as they are stored as Scheme variables internally we can also refer to
+them using the Scheme syntax (i.e. switching to Scheme with `#`):
+
+{% lilypond %}
+{
+   % assign tempos by referencing variables using Scheme
+  \tempo 8 = #bpmA
+  R1
+
+  \tempo 8 = #bpmB
+  R1
+}
+{% endlilypond %}
+
+Each of these ways to access the variables will work interchangeably, and it
+depends on the context which one should be used.  This flexibility may seem
+confusing but it helps if you strictly remember that *all* values and variables
+are maintained as Scheme structures internally and that setting and accessing
+them can always be done through Scheme or LilyPond syntax.
+
+<img src="http://lilypondblog.org/wp-content/uploads/2014/03/first-music-function1.png" alt="first-music-function-image" width="656" height="141" class="aligncenter size-full wp-image-2551" />
 
 {% credits %}{% endcredits %}

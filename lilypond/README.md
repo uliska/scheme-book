@@ -1,1 +1,0 @@
-# Scheme In LilyPond
