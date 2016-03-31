@@ -1,6 +1,6 @@
 # LilyPond's Scheme
 
-LilyPond uses *Scheme* as its extension language - that said, it has to be noted
+LilyPond uses *Scheme* as its extension language - but it has to be noted
 that this is only half of the story.  In order not to get confused
 it's crucial to have a clear idea of the actual implications.
 
@@ -25,7 +25,7 @@ search for “Scheme” solutions on the internet you have to expect that the
 results may not be (completely) compatible with LilyPond.  If you are not fully
 aware of that fact looking for help on the net can be quite off-putting.
 
-The Scheme impementation used by LilyPond is the one included in
+The Scheme implementation used by LilyPond is the one included in
 [Guile 1.8](http://www.gnu.org/software/guile/), which is the official application
 platform and extension language of the [GNU](http://gnu.org) operating and
 software system.  Therefore the official resource for any questions is the [GNU
@@ -47,41 +47,20 @@ list.
 
 ## *How* To Use Scheme in LilyPond?
 
-A LilyPond user faces challenges on three levels with using Scheme in LilyPond, each of which is covered in one of the major bookparts.
+A LilyPond user faces challenges on three levels with using Scheme in LilyPond:
 
-The first is learning the language itself.  Experience tells that a substantial
-obstacle on the thorny path is a lack in understandable documentation and
-learning resources.  There seems to be a gap between people who haven't gone
-through a sufficient “initiation” and those who *have* done so - and who seem to
-have lost the understanding for the beginner's needs.  Therefore this book aims
-at providing a slow-paced, yet thorough introduction to Scheme's elements and
-concepts.  While it is not a proper computer science book it tries to focus on
-the questions that confuse aspiring LilyPond users most.
+* learning the language,
+* integrating Scheme code in LilyPond code, and
+* interacting with LilyPond internals through Scheme.
 
-The second topic is the integration of Scheme as an extension language in
-LilyPond input files. This works quite smoothly because LilyPond's language
-itself is parsed in a way that is very close to Scheme.  But on the other hand
-this affinity can make things confusing.  We will give particular emphasis on
-disentangling these things.
-
-The third challenge is the more advanced interaction with LilyPond's internals
-that is possible through Scheme.  LilyPond can reveal information about every
-object's most secret properties, and the user can interact very closely with
-these internals.  This is the part where the average LilyPond user tends to give
-up and will even be more confused than informed by the helping hands given by
-more knowledgeable people on the mailing lists.  However, this becomes much more
-accessible once the user has a firm understanding of the fundamentals of Scheme
-and its integration in LilyPond documents.
-
-The following pages will give the reader an idea about the “look and feel” of
-writing Scheme in LilyPond.  This will make it easier  to understand the later
-sections of this book, other resources about Scheme, and solutions and comments
-provided in the usual LilyPond resources.  In Scheme it is often difficult to
-see the forest for the trees - or with a more specific metaphor: to see the
-expression for the parentheses.  Novice users usually are overwhelmed by the
-need for a different mindset while seasoned users often fail to see the needs of
-those who don't have that mindset yet.
-
-
+The following pages will give some basic information about these three topics,
+while the rest of this book will give the reader an idea about the “look and
+feel” of writing Scheme in LilyPond.  This will make it easier to understand
+other resources about Scheme or solutions and comments provided in the usual
+LilyPond resources.  In Scheme it is often difficult to see the forest for the
+trees - or with a more specific metaphor: to see the expression for the
+parentheses.  Novice users usually are overwhelmed by the need for a different
+mindset while seasoned users often fail to see the needs of those who don't have
+that mindset yet.
 
 {% credits %}{% endcredits %}
