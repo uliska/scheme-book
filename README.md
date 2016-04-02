@@ -13,19 +13,24 @@ engraving scores.  But even without any ambitions to “program LilyPond” it i
 always a good idea to familiarize oneself with some characteristics of Scheme
 because one will get in touch with it at every level.
 
+For anybody except seasoned computer scientists this seems to be a thorny path,
+for several reasons that will be somewhat outlined in the following chapters.
 Unfortunately the [official
 documentation](http://www.lilypond.org/doc/v2.18/Documentation/extending/index.html)
 is not exactly helpful in smoothly introducing beginners to the world of Scheme.
 And particularly the integration of Scheme in LilyPond can be a real challenge
 to get comfortable with.  Therefore this book provides a slow-paced and thorough
-introduction to the basics of Scheme, with specific concern for usage in
-LilyPond.  It is not a formal computer science textbook but rather tries to
-eliminate the typical obstacles that LilyPond users face when trying to approach
-Scheme.  The goal of the book is giving a firm understanding and fundamental
-knowledge of Scheme and its integration in LilyPond, not a comprehensive
-coverage.  Having studied the following chapters can't replace further
-individual learning, but should at least give the reader a robust foundation for
-that task.
+introduction to the basics of Scheme, with specific concern for the LilyPond
+perspective.  It is not a formal computer science textbook but rather targeted
+at musicians, musicologists and music engravers who want to dig deeper than the
+surface.  It tries to overcome or at least alleviate the obstacles that LilyPond
+users typically face when trying to approach Scheme.
+
+This book is *not* your one-stop shop for Scheme in LilyPond and explicitly
+doesn't make further individual learning obsolete.  However, it aims at
+providing a robust foundation that will make this learning more pleasant - or
+possible in the first place.
 
 This book is part of [The Plain Text And Music
-Book](https://textbook.openlilylib.org).
+Book](https://textbook.openlilylib.org).  Originally it was an integrated part,
+but due to its size and weight we decided to extract it into its own book.
