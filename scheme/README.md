@@ -12,9 +12,8 @@ this book will strongly prefer the *new* syntax and exclusively explain this.*
 In order to insert code in a different language the parser must discern between
 the two layers, which it does through the `#` sign that marks the transition
 from LilyPond to Scheme.  Concretely, whenever the parser encounters this marker
-it will interpret the *immediately following expression* as Scheme code.  (One
-of the following chapters will go into some detail about what an “expression” is
-in Scheme.)
+it will interpret the *immediately following expression* as Scheme code.  (The
+next chapter will go into some detail about what an “expression” is in Scheme.)
 
 So to insert any Scheme expression into a LilyPond document you have to prepend
 it with `#`.  The best way to understand this is to see it in action.  More or
@@ -28,8 +27,8 @@ override:
 {% endlilypond %}
 
 The `#` tells LilyPond's parser to parse one complete Scheme expression, which
-happens to be the *pair* `'(2 . 1)` (the next chapter will go into more details
-about Scheme's data types.)
+happens to be the *pair* `'(2 . 1)` (There is a [chapter](data-types/index.html)
+that will go into more details about Scheme's data types.)
 
 #### Exceptions
 
@@ -45,10 +44,14 @@ equivalent:
 }
 {% endlilypond %}
 
-The same is true for strings *(TODO: should it be explained what a ”string is?)*
-that can additionally be written with or without double quotes (NOTE: in
-LilyPond/Scheme strings *have* to use *double* quotes and not single quotes).
-Again, the following assignments are equivalent:
+This feels very natural, but it can cause some confusion once one starts
+thinking about it.  The point is that it is actually the *LilyPond* parser that
+performs this transparent conversion.
+
+The same is true for strings *(TODO: should it be explained what a ”string”
+is?)* that can additionally be written with or without double quotes (*NOTE:*
+LilyPond/Scheme strings *have* to use *double* quotes, as single quotes have a
+completely different meaning).  Again, the following assignments are equivalent:
 
 {% lilypond %}
 \header {
@@ -60,8 +63,10 @@ Again, the following assignments are equivalent:
 
  The first one is the “regular” Scheme syntax: switching to Scheme mode, then
  writing a proper string with quotes.  The other ones are simplifications made
- possible through LilyPond's own parser.  But in all three cases the *variable*
- `title` now refers to the *string* `MyPiece`.
+ possible through LilyPond's parser.  But in all three cases the *variable*
+ `title` now refers to the *string* `MyPiece`. *Note:* the third version is only
+ possible with single words. Something like `"My Piece"` *must* be enclosed in
+ the quotes.
 
  There are a few other data types where this is possible, but we will discuss
  them at a later point.  For now you should only keep in mind that you have to
@@ -74,8 +79,6 @@ variables in LilyPond input files.  Variables can be defined using either
 syntax:
 
 {% lilypond %}
-\version "2.18.0"
-
 % define a variable using LilyPond syntax
 bpmA = 60
 
