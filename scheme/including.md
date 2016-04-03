@@ -12,8 +12,7 @@ this book will strongly prefer the *new* syntax and exclusively explain this.*
 In order to insert code in a different language the parser must discern between
 the two layers, which it does through the `#` sign that marks the transition
 from LilyPond to Scheme.  Concretely, whenever the parser encounters this marker
-it will interpret the *immediately following expression* as Scheme code.  (The
-next chapter will go into some detail about what an “expression” is in Scheme.)
+it will interpret the *immediately following code* as a *Scheme expression*.
 
 So to insert any Scheme expression into a LilyPond document you have to prepend
 it with `#`.  The best way to understand this is to see it in action.  More or
@@ -27,8 +26,8 @@ override:
 {% endlilypond %}
 
 The `#` tells LilyPond's parser to parse one complete Scheme expression, which
-happens to be the *pair* `'(2 . 1)` (There is a [chapter](data-types/index.html)
-that will go into more details about Scheme's data types.)
+happens to be the *pair* `'(2 . 1)` (a later [chapter](data-types/index.html)
+will go into more details about Scheme's data types.)
 
 #### Exceptions
 
@@ -63,7 +62,7 @@ completely different meaning).  Again, the following assignments are equivalent:
 
  The first one is the “regular” Scheme syntax: switching to Scheme mode, then
  writing a proper string with quotes.  The other ones are simplifications made
- possible through LilyPond's parser.  But in all three cases the *variable*
+ possible through LilyPond's parser.  But in all three cases the variable
  `title` now refers to the *string* `MyPiece`. *Note:* the third version is only
  possible with single words. Something like `"My Piece"` *must* be enclosed in
  the quotes.
@@ -87,9 +86,10 @@ bpmA = 60
 {% endlilypond %}
 
 We have two variables, `bpmA` and `bpmB`, one of which has been entered as a
-LilyPond, the other as a Scheme variable (we'll soon get to the “thing” with the
-parens in Scheme).  But internally they are now the same kind of variable and
-can be accessed in the same way:
+LilyPond, the other as a Scheme variable (as an exercise you can think about
+this expression in the light of what you learnt in the previous chapter).  But
+internally they are now the same kind of variable and can be accessed in the
+same way:
 
 {% lilypond %}
 {
@@ -107,7 +107,9 @@ can be accessed in the same way:
 {% endlilypond %}
 
 However, as they are stored as Scheme variables internally we can also refer to
-them using the Scheme syntax (i.e. switching to Scheme with `#`):
+them using the Scheme syntax (i.e. switching to Scheme with `#` but *not*
+enclosing them in parens, as these variables are constants or self-evaluating
+expressions):
 
 {% lilypond %}
 {
