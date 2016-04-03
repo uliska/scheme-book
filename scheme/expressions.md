@@ -14,11 +14,15 @@ We will investigate Scheme expressions using a *Scheme shell* or
 (Read-Eval-Print-Loop), which - as the acronym suggests - reads in an
 expression, evaluates it and immediately prints the resulting value.  For all
 but the most trivial use cases this shell is too limited, but for experimenting
-with expressions and data types it is pretty much ideal.  LilyPond provides such
-a shell that is fired up with the command `lilypond scheme-sandbox`, which will
-lead you to a command prompt:
+with expressions and data types it is pretty much ideal.  
+
+LilyPond provides such a shell whose most important advantage is that it
+provides exactly the environment LilyPond is running in. Firing it up with the
+command `lilypond scheme-sandbox` you can test how any given expression behaves
+in the LilyPond context:
 
 ```
+$ lilypond scheme-sandbox
 GNU LilyPond 2.19.39
 Processing `/home/username/lilypond/usr/share/lilypond/current/ly/scheme-sandbox.ly'
 Parsing...
@@ -26,15 +30,11 @@ guile>
 ```
 
 At this `guile>` prompt you can enter any single Scheme expression, and its
-value will immediately be printed to the command line.  The most important
-advantage of this “sandbox” is that it provides exactly the environment LilyPond
-is also running in for its regular engraving jobs, so you can test how any given
-expression behaves in the LilyPond context.
-
-In the following examples the remainder of the line starting with `guile>` is
-the expression that you will enter at the command prompt, while the following
-line(s) are the printout of the expression's evaluation.  Note that we don't use
-the hash sign, as we are in a *Scheme* shell, so we don't have to *switch* from
+value will immediately be printed to the command line.  In the following
+examples the remainder of the line starting with `guile>` is the expression that
+you will enter at the command prompt, while the subsequent line(s) are the
+printout of the expression's evaluation.  Note that we don't use the hash sign,
+as we already are in a *Scheme* domain, so we don't have to *switch* from
 LilyPond to Scheme.
 
 #### Literals
@@ -66,18 +66,21 @@ guile> '(1 . "Hello")
 
 guile> '(1 2 3)
 (1 2 3)
+
+guile> red
+(1.0. 0.0 0.0)
 ```
 
 The first three expressions were a *string* literal, a floating point *number*,
 and Scheme's notation of the boolean *true* value.  Don't worry, we'll dissect
-the strange notation of the last two expressions soon, in a later chapter.
+the strange notation of the last three expressions soon, in later chapters.
 
 #### Procedure Application
 
 OK, just having literal values is not really exciting, so let's type in
 something more interesting:
 
-```
+```markdown
 guile> (+ 12 17)
 29
 ```
@@ -87,12 +90,14 @@ with the operator written first, before the operands.  But actually this isn't
 the right perspective to understand the matter.  It is not just an example of a
 somewhat unusual syntax but rather the core of how Scheme works.
 
+##### Expressions Apply Procedures
+
 What we just typed in is not a “command” or “statement” but an *expression*, an
 expression whose value after evaluation is `29`.  Formally the expression we
 typed at the prompt is a *list*, Scheme's most basic and fundamental form of
 data.  A list in Scheme is an arbitrary number of elements, grouped by parens.
-The current list has three elements: a `+` sign and two integer numbers, 12 and
-17.  Whenever Scheme sees such a list it considers the first element a
+The current list has three elements: a `+` sign and two integer numbers, 12
+and 17.  Whenever Scheme sees such a list it considers the first element a
 *procedure name* and tries to call that procedure. The remaining elements of the
 list are passed to the procedure, or - in Scheme-speak - the procedure is
 *applied* to the remaining elements.  So in our example we apply the procedure `+`
@@ -117,6 +122,8 @@ basically it's the same thing as in the previous example.  What we perceive as a
 procedure and its arguments is in fact a list whose first element is a
 procedure.
 
+##### Applying Procedures to Multiple Arguments
+
 It feels natural that `string-append` concatenates all of its “arguments”, but
 as said we are talking of applying the procedure to all remaining list elements.
 In order to get a deeper understanding we can look at an example that is more
@@ -133,19 +140,19 @@ finally divide the result (25) by 5.  This *is* quite different from most
 programming languages where one would have to explicitly use the operator for
 each subsequent division.
 
+##### Procedure “Type”
+
 ```
 guile> (1 "2" 3.14)
 ERROR: Wrong type to apply: 1
 ABORT: (misc-error)
 ```
 
-Oh, what is wrong here? We have a list with three elements, and again Scheme
-will try to take the first element as a procedure.  But `1` is a number and not
-a procedure, therefore the application must fail.   The list `(1 "2" 3.14)` is a
-list of three literals, an integer, a string, and a floating point number.  We
-said that when evaluating lists the first element is expected to be a procedure,
-and we can easily check what Scheme thinks of these procedures when passed as
-literals:
+Oh, what is wrong here, why should `1` be the wrong type to “apply”?  As said
+Scheme will interpret the first element of a list as a procedure name and try to
+call that procedure.  So obviously that first element must *be* a procedure.
+Using the REPL we can easily check what Scheme thinks of these procedures when
+passed as literals:
 
 ```
 guile> string-append
@@ -157,11 +164,16 @@ guile> +
 
 Obviously procedures don't really have a “value”, therefore the interpreter uses
 this special kind of  `#< >` notation to tell us what it has read.
-`string-append` is a “primitive-procedure”, and `+` is a “primitive-generic”.
-Note that we didn't use parens here in order to evaluate the literals
-themselves.  In order to demonstrate the difference we will show one last
-example: a procedure (defined by LilyPond), entered without and with
-parentheses:
+`string-append` is a “primitive-procedure”, and `+` is a “primitive-generic”
+(which more or less is the same as a procedure).
+
+##### Procedure Names vs. Expressions
+
+The error in the previous section is caused by mixing procedures and
+expressions.  And it is typically encountered when the input code mistakenly
+uses the procedure invocation instead of its name.  In order to demonstrate
+the difference we will show another example: a procedure (defined by LilyPond),
+entered without and with parentheses:
 
 ```
 guile> ly:version
@@ -176,14 +188,38 @@ is a procedure.  In the second invocation the parens cause that procedure to be
 *called*, evaluating to a list with the version numbers for the current LilyPond
 version (so you'll likely get a different result when you try it out).
 
-**Summary:**   Whenever you see an expression wrapped in parentheses you know
-**that it is a list whose first element should be a procedure, which is then
-**applied to all remaining list elements *(note that there is the concept of
-***quoting* that makes an important difference here.  We will go into detail
-**about this in a later chapter)*.  The value this expression evaluates to is
-**the result of the procedure application.  This statement may seem trivial now,
-**but keeping this in mind very firmly will help you significantly when having
-**to disentangle complex nested structures in Scheme.
+The final example is the real-world cause for the “Wrong type to apply” error
+that is also very confusing for beginners:
+
+```
+guile> ((+ 1 2))
+ERROR: Wrong type to apply: 3
+ABORT: (misc-error)
+```
+
+What is happening here? We have entered one layer of parentheses too much.  Of
+course it's a simplistic example but when you are trying to modify real-world
+code this is something you will run into quite often.
+
+So what happens (and will be explained in more detail in the next section) is:
+First the inner expression `(+ 1 2)` is evaluated and replaced with the result,
+leaving `(3)` to the interpreter. In the next step to evaluate the complete
+expression Scheme will try to invoke the procedure `3` because its the first
+element in the remaining list. *Now* the error message is completely
+understandable.
+
+
+
+##### Summary:
+
+Whenever you see an expression wrapped in parentheses you know
+that it is a list whose first element should be a procedure, which is then
+applied to all remaining list elements *(note that there is the concept of
+*quoting* that makes an important difference here.  We will go into detail
+about this in a later chapter)*.  The value this expression evaluates to is
+the result of the procedure application.  This statement may seem trivial now,
+but keeping this in mind very firmly will help you significantly when having
+to disentangle complex nested structures in Scheme.
 
 #### Nested Expressions
 
@@ -218,21 +254,46 @@ especially when considering that procedures can be much more complex items than
 the simple operators we just had.  Note that this expression still doesn't *do*
 anything useful yet, from the program's perspective it just represents `16` - so
 it will have to be integrated somewhere, resulting in even more nesting layers.
+Take the following expression as a contrived example.
+
+```
+guile> (let* ((init-value (+ (- 14 4) (* 3 (- 5 3))))
+              (processed-value (* (+ init-value 4) (- init-value 3))))
+        (display processed-value))
+260
+```
+
+You can and should for now ignore everything you don't know about that (we'll
+soon cover it in the chapter about [variable binding](binding.html)) but simply
+realize that within that “mess” we have inserted the previous expression and
+that it actually evaluates to a simple `16`, so the expression could as well
+have been written as
+
+```
+guile> (let* ((init-value 16)
+              (processed-value (* (+ init-value 4) (- init-value 3))))
+        (display processed-value))
+260
+```
+
 Getting lost in nested parens is one of the most common - and potentially
 frustrating - experiences new Scheme users have.  But when you strictly keep in
 mind that each pair of parens encloses one expression it is possible to keep the
 head over water.
 
-Every Scheme program, complex expression or procedure will consist of one or
-several consecutive (nested) expressions.  Different from many other languages
-there is no statement like `return` in Scheme to pass back a result to the
-caller.  Instead the value of the *last* expression in such a block will
-determine the value of the block as a whole.  It is important to be clear about
-this topic because that makes it much easier to grasp or design the program flow
-in complex Scheme programs.
+#### Some Preliminary Words on Program Flow
+
+So far we have only talked about single expressions.  But of course these don't
+make up complete programs.  A Scheme program consists of either a single
+expression or a sequence thereof.  Whenever the complexity of the task suggests
+factoring out functionality in procedures this is done, but not through
+explicitly *calling* them but through expressions that implicitly invoke them,
+as we have discussed in this chapter.  Of course users can define their own
+procedures, which will be coverd later.  But any procedure can be understood as
+a single expression that - again - *evaluates* to its “result”.
 
 
-#### “Empty” Expressions
+##### “Empty” Expressions
 
 It has to be said that there are expressions that do *not* evaluate to anything
 useful, and Scheme treats their value as `<unspecified>`.  These correspond to
@@ -240,5 +301,3 @@ useful, and Scheme treats their value as `<unspecified>`.  These correspond to
 discern between *functions* (do return a value) and *procedures* (do not).  At
 this point we don't have the means to show these, but it is a good idea to keep
 in mind that such “empty” expressions exist.
-
-{% credits %}{% endcredits %}

@@ -14,7 +14,7 @@ This is the summary of my book.
             * [Custom Types](scheme/data-types/custom.md)
         * [Lists and Pairs](scheme/lists-and-pairs.md)
         * [Quoting - Preventing Evaluation](scheme/quoting.md)
-        * [Binding Variables]()
+        * [Binding Variables](binding.md)
         * [Conditionals]()
         * [Iterating Over Lists]()
         * [lambda - Defining Procedures](scheme/lambda.md)
