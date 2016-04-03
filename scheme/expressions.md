@@ -33,9 +33,7 @@ At this `guile>` prompt you can enter any single Scheme expression, and its
 value will immediately be printed to the command line.  In the following
 examples the remainder of the line starting with `guile>` is the expression that
 you will enter at the command prompt, while the subsequent line(s) are the
-printout of the expression's evaluation.  Note that we don't use the hash sign,
-as we already are in a *Scheme* domain, so we don't have to *switch* from
-LilyPond to Scheme.
+printout of the expression's evaluation.
 
 #### Literals
 
