@@ -9,7 +9,7 @@ This is the summary of my book.
 * [Scheme](scheme/README.md)
     * [Everything's an Expression](scheme/expressions.md)
     * [Including Scheme in LilyPond](scheme/including.md)
-    * [Scheme Concepts]()
+    * [Scheme Concepts](scheme/concepts.md)
         * [Data Types](scheme/data-types/README.md)
             * [Simple Data Types](scheme/data-types/simple.md)
             * [Custom Types](scheme/data-types/custom.md)
