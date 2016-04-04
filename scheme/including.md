@@ -71,6 +71,32 @@ completely different meaning).  Again, the following assignments are equivalent:
  them at a later point.  For now you should only keep in mind that you have to
  use `#` to switch to Scheme syntax - but not *always*.
 
+#### Displaying Scheme Values
+
+Sometimes it is necessary, and for learning it is often enlightening, to print
+some Scheme values to the console.  To start with, there are two ways to do so,
+using Scheme's `display` procedure or LilyPond's `ly:message` family of
+functions:
+
+{% lilypond %}
+myVariable = "This is a variable"
+
+#(display myVariable)
+#(ly:message myVariable)
+{% endlilypond %}
+
+There are some notable differences between the commands:
+
+* `display` can show *any* value while `ly:message` only processes strings
+  (but this can be circumvented using the `format` procedure)
+* `display` will not produce a newline, so that should always be done manually
+  (through `#(newline)`)
+* `ly:message` will print immediately while `display` only acts after parsing
+  has been finished.
+
+We will regularly use these methods for demonstrating parts of our code in the
+subsequent chapters.
+
 #### LilyPond and Scheme variables
 
 Another thing to note is that LilyPond variables are interchangeable with Scheme
