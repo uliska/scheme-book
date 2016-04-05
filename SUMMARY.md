@@ -17,7 +17,7 @@ This is the summary of my book.
             * [Symbols](scheme/data-types/symbols.md)
         * [Compound Data Types](scheme/data-types/compound.md)
             * [Lists and Pairs](scheme/data-types/lists-and-pairs.md)
-        * [Custom Types](scheme/data-types/custom.md)
+            * [Custom Types](scheme/data-types/custom.md)
         * [Quoting](scheme/quoting.md)
         * [Binding Variables](binding.md)
         * [Conditionals]()
