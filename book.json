@@ -4,6 +4,7 @@
         "ebook": "styles/ebook.css"
     },
     "plugins": ["lilypond-styles",
+        "lilypond-highlight",
         "fullsize-image",
         "expandable-chapters"],
     "pluginsConfig": {
