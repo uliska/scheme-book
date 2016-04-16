@@ -53,17 +53,18 @@ application.
 
 Of course it's no good idea to simply throw values at a procedure and wait for
 errors to occur or not.  In Scheme it is therefore very common to check the type
-of a value before using it.  As a response the program will either raise an
-error, i.e. reject the value, or it will select suitable code to be executed.
-This will be discussed in a later chapter on
-[conditionals](../conditionals.html).
+of a value before using it.  As a response the program will either reject the
+value or  select suitable code to be executed. This will be discussed in a later
+chapter on [conditionals](../conditionals.html).
 
 Scheme does not have a (regular) way of revealing the type of something directly
-(which is part of the open characteristic), instead one can ask if a given
-object has a specific type.  This is achieved using *predicates*.  Predicates
-take an object and return a *true* value if the object has a certain type or a
-*false* value otherwise.  By convention the name of a predicate has a trailing
-question mark, so for example `number?` checks if a given value is a number etc.
+(which is part of the open characteristic).  The approach taken instead is
+something like asking “is this object behaving like a certain type, does it have
+the right properties?” This is achieved using *predicates*.  Predicates are
+procedures that take an object and return *true* if the object matches a certain
+definition or *false* otherwise.  By convention the name of a predicate has a
+trailing question mark, so for example `number?` checks if a given value is a
+number etc.
 
 ```
 guile> (string? "I'm a string")
