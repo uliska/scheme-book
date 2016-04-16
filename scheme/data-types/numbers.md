@@ -57,13 +57,10 @@ guile> (real? 1.20389175)
 guile> (fraction? 5/4)
 #t
 
-guile> (fraction? 0.00020300100002)
+guile> (fraction? 1.25)
 #f
 ```
 
-The last example sort-of shows that it is quite hard to produce a real number
-that is not a fraction, i.e. that can *not* be expressed as a fraction of
-integers.
 
 #### Mixing Reals, Rationals and Integers
 
