@@ -2,55 +2,72 @@
 
 Now that we've discussed some of the basic data types it is important to
 understand that Scheme can be substantially extended with arbitrary “data
-types”.  The basic step to defining a data type in Scheme is writing a predicate
-to check if a given object satisfies the requirements for that data type.
+types”.  As we have learnt earlier Scheme is very open about types, and
+therefore creating data types in Scheme is not like defining classes of objects
+with their properties and methods.  Instead one writes *predicates* (see [data
+types](index.html#predicates)), basically providing a way to check if a given
+object matches the criteria for being “of a given type”.
 
-Data types are defined in the following layers, and it may be complicated to
-trace sometimes:
+There is a large number of predicates available beyond the basic Scheme data
+types, and it is sometimes difficult to trace where a given data type is
+originating.  Predicates can be defined in
 
-* Scheme itself
-* Guile's Scheme implementation
-* LilyPond
+* Scheme itself,
+* Guile's Scheme implementation,
+* LilyPond, or
 * Custom (user/library) code
 
-You may now want to have a look at the **TODO:** list of predicates in
-LilyPond's documentation.
-
-The creation of custom data types is discussed in a [later
-chapter](../procedures/predicates.html), but for now we will investigate one
-custom data type that is defined by LilyPond: `color?`.
+You may now want to have a look at the extensive [list of
+predicates](http://lilypond.org/doc/v2.19/Documentation/notation/predefined-type-predicates)
+in LilyPond's documentation.  To get our head around the idea of custom data
+types we will have a closer look at one data type that is defined by LilyPond:
+`color?`.
 
 #### Dissecting a Custom Data Type
 
-**TODO:** find the online link to notation/inside-the-staff.html#index-color-1
-and learning/visibility-and-color-of-objects.html#the-color-property
-
-To apply a color to score elements one overrides it's `color` property:
+Applying a color to a score item is achieved by overriding its `color` property.
+(For more details about coloring please refer to the respective pages in
+LilyPond's [Learning
+Manual](http://lilypond.org/doc/v2.19/Documentation/learning/visibility-and-color-of-objects#the-color-property)
+and the [Notation
+Reference](http://lilypond.org/doc/v2.19/Documentation/notation/inside-the-staff#coloring-objects).)
 
 {% lilypond %}
 \override NoteHead.color = #red
 {% endlilypond %}
 
-The hash sign switches to Scheme, and `red` is given as a variable name.  Using
-the Scheme REPL we can investigate what this evaluates to:
+The hash sign switches to Scheme, and `red` is given as a symbol referring to a
+variable.  Using the Scheme REPL we can investigate what this variable evaluates
+to:
 
 ```
 guile>red
 (1.0 0.0 0.0)
 ```
 
-Obviously `red` is a list of three floating-point numbers.  If you know
-something about colors you may now guess that the three numbers represent the
-RGB values, presumably within a range of `0` and `1`.  We stop this by telling
-you that this it correct, but you may wish to experiment by inspecting other
-colors, e.g. `blue`, `green`, `yellow` or `magenta`.
+`red` evaluates to a list of three floating-point numbers.  If you know
+something about colors and guess that the three numbers represent the RGB values
+within a range of `0` and `1` you are right.  If you want you can do more
+experiments by inspecting other colors in the REPL, e.g. `blue`, `green`,
+`yellow` or `magenta`.
 
-The predicate `color?` is responsible for verifying if a value is a color, so we
-can try a few things to get closer to the definition of `color?`:
+We can use the predicate `color?` to check if a given value is a color.  
 
 ```
-guile>(color? red)
+guile> (color? red)
 #t
+
+guile> (color? '(1.0 0.0 0.0))
+#t
+```
+
+It is not surprising to see that `red` is a `color`, but we also see that we can
+pass a literal value to the predicate.  Experimenting with a number of values we
+can get closer to understanding what `color?` expects:
+
+```
+guile> (color? 'my-symbol)
+#f
 
 guile> (color? '(1 0 1))
 #t
@@ -68,10 +85,13 @@ guile> (color? '(0 1 0 1))
 #f
 ```
 
-Obviously a color is a color when it consists of three real numbers in the range
-of `0 =< n =< 1`.  The numbers can be written as integers, fractions or reals,
-as long as they are within the proper range.  There have to be exactly three
-such numbers.
+Obviously a color is a color when it consists of a list of (exactly) three real
+numbers in the range of `0 =< n =< 1`.  The numbers can be written as integers,
+fractions or reals, as long as they are within the proper range.  In a [later
+chapter](../predicates.html) we will have a closer look at how `color?` is
+defined, which will confirm this assumption.
+
+
 
 ---
 
