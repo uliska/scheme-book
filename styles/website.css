@@ -4,6 +4,3 @@
 
 /* General stylesheet for added stylings */
 @import "styles.css";
-
-/* Stylesheet for syntax highlighting LilyPond code*/
-@import "ly.css";
