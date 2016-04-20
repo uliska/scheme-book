@@ -23,6 +23,7 @@ This is the summary of my book.
                 * [List Structure](scheme/data-types/lists-and-pairs/structure.md)
                 * [Accessing Lists](scheme/data-types/lists-and-pairs/accessing-lists.md)
                 * [Pairs vs. Lists](scheme/data-types/lists-and-pairs/list-pair-comparison.md)
+            * [Association Lists](scheme/data-types/alists/README.md)
             * [Custom Types](scheme/data-types/custom.md)
         * [Quoting](scheme/quoting.md)
         * [Binding Variables](binding.md)
