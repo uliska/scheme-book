@@ -19,6 +19,7 @@ This is the summary of my book.
             * [Lists and Pairs](scheme/data-types/lists-and-pairs/README.md)
                 * [Creating Pairs](scheme/data-types/lists-and-pairs/creating-pairs.md)
                 * [Accessing Pairs](scheme/data-types/lists-and-pairs/accessing-pairs.md)
+                * [Creating Lists](scheme/data-types/lists-and-pairs/creating-lists.md)
             * [Custom Types](scheme/data-types/custom.md)
         * [Quoting](scheme/quoting.md)
         * [Binding Variables](binding.md)
