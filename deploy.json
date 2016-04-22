@@ -1,0 +1,7 @@
+{
+    "python_ly_dir": "/home/uliska/git/lilypond/python-ly",
+    "checkout_dir": "scheme-book-checkout",
+    "book_root": "book.openlilylib.org/scheme-book",
+    "book_url": "https://textbook.openlilylib.org/scheme-book",
+    "branches_root": "branches"
+}
