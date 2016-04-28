@@ -28,6 +28,7 @@ This is the summary of my book.
             * [Preventing Evaluation](scheme/quoting/preventing-evaluation.md)
             * [Creating Lists and Pairs](scheme/quoting/lists-and-pairs.md)
             * [Unquoting](scheme/quoting/unquoting.md)
+        * [Equality and Equivalence](scheme/equality.md)
         * [Association Lists](scheme/alists/README.md)
             * [Lookup in Alists](scheme/alists/retrieving.md)
             * [Modifying Alists](scheme/alists/modifying.md)
