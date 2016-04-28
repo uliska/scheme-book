@@ -1,13 +1,12 @@
 # `let*` and `letrec`
 
 Creating one or more local bindings with `let` is a powerful concept, but there
-are cases where this is limited by the fact that it is not possible to access
-other bindings within a binding. I'll make that statement clear with an example.
-Sometimes you get data in complex data structures, and you have to access the
-data in various ways, with later bindings wanting to access an earlier one.
+are cases where it is limited by the fact that the bindings are only accessible
+in the body of the expression.
 
-For the sake of the example we will continue to work with the expression from
-the previous chapters, factoring out yet another level to bindings:
+The easiest way to make the point is an example. For this we will continue to
+work with the expression from the previous chapters, factoring out yet another
+set of objects to bindings:
 
 {% lilypond %}
 dampedYellowWithLet =

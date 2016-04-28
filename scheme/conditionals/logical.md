@@ -101,13 +101,13 @@ colors =
 
 ## Nesting of Logical expressions
 
-When more than one condition has be nested dealing with “operator precedence” is
-a confusing issue in many languages: which conditionals are evaluated first, do
-we therefore have to group them with brackets, etc.?  Scheme's approach to this
-topic is very straightforward, and once you get the fundamental idea it is no
-magic anymore: Each conditional expression tests one single value, and that
-value can be the result of another logic expression. Period.  From there you can
-create arbitrary levels of nesting.
+When more than one condition have to be nested dealing with “operator
+precedence” is a confusing issue in many languages: which conditionals are
+evaluated first, do we therefore have to group them with brackets, etc.?
+Scheme's approach to this topic is very straightforward, and once you get the
+fundamental idea it is no magic anymore: Each conditional expression tests one
+single value, and that value can be the result of another logic expression.
+Period.  From there you can create arbitrary levels of nesting.
 
 What does the expression `(not (and #t #f))` return and why? We have a `not`
 which will invert the boolean state of the value it is applied to.  That value

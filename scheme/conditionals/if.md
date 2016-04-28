@@ -78,7 +78,7 @@ The most important thing to understand here is that the subexpressions
 true for the whole `if` expression.  This is what I meant with the different
 paradigm: in Scheme an `if` expression should be phrased colloquially as
 “depending on the result of the test this evaluates to one or the other” instead
-of depending on the test do this or that”. This is best demonstrated in a local
+of “depending on the test do this or that”. This is best demonstrated in a local
 binding (which is also a common use case for conditionals):
 
 {% lilypond %}
@@ -90,7 +90,7 @@ binding (which is also a common use case for conditionals):
     (format "The random number ~a is ~a" rand state)))
 {% endlilypond %}
 
-We have a `let*` expression at the core of this example. It established two
+We have a `let*` expression at the core of this example. It establishes two
 bindings, first a random integer and then its “state”.  The value bound to the
 `state` name is the result of an `if` expression, namely one of the strings
 `“even”` or `“odd”`, depending on the result of the application of the `even?`

@@ -22,6 +22,11 @@ clause is evaluated.
 
 ### Different Forms of clauses
 
+I just wrote that the clauses are evaluated if their test succeeds, but that's a
+little bit sloppy.  Actually there are three different forms of valid clauses,
+and the evaluation is different in each.  The point was mainly that the first
+successful test determines which clause is responsible for the return value.
+
 #### The Most Common Form
 
 The most common form for each clause is
@@ -130,8 +135,8 @@ the pair.  The `else` clause has been adjusted accordingly.
 
 This form is actually a very nice form of ”syntactic sugar” because it greatly
 simplifies that task.  Of course we could get the same result - the color part
-extracted from the pair -, but in an unnecessarily complicated way. The relevant
-clause could for example be written like this:
+extracted from the pair - with the other forms as well, but in an unnecessarily
+complicated way. The relevant clause could for example be written like this:
 
 {% lilypond %}
 ((assq 'col-red colors)
@@ -143,7 +148,6 @@ pass it along to `car`, which seems pretty inefficient.  So we can avoid using
 `assq` twice by hooking in a local binding:
 
 {% lilypond %}
-((assq 'col-darkblue colors))
 ((let ((result (assq 'col-red colors)))
    (if result
        (cdr result)
