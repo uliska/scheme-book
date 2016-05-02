@@ -9,6 +9,7 @@ This is the summary of my book.
 * [Scheme](scheme/README.md)
     * [Everything's an Expression](scheme/expressions.md)
     * [Including Scheme in LilyPond](scheme/including.md)
+    * [Music Function Primer](scheme/music-function-primer.md)
     * [Scheme Concepts](scheme/concepts.md)
         * [Data Types](scheme/data-types/README.md)
             * [Numbers](scheme/data-types/numbers.md)
