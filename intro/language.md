@@ -68,4 +68,4 @@ satisfied by a solution that “just works” but ask until you have understood 
 underlying principle.
 
 The bookpart about [Scheme](../scheme/index.html) will cover Scheme concepts on
-their own, bu always from the perspective of LilyPond.
+their own, but always from the perspective of LilyPond.
