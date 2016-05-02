@@ -69,8 +69,7 @@ And Music Book](https://book.openlilylib.org).  However, as it grew so much I
 decided to extract it and release it as an independent web book.  Of course the
 book is “work in progress”, as thanks to its nature as an online book it's
 easily possible to make available what's already been written.  The outline
-already gives an impression of what's planned, but experience tells that the
-have any questions about the book in general or any particular topic, if you it
+already gives an impression of what's planned, but experience tells that it
 will be both refined and extended during the actual writing process.  If you
 find actual errors or sections that could be expressed more clearly, don't
 hesitate to contact me and/or open an issue at the book's [Issue
