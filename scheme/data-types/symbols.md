@@ -7,7 +7,7 @@ The [Guile
 reference](https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Symbols.html#Symbols)
 states that *“Symbols in Scheme are widely used in three ways: as items of
 discrete data, as lookup keys for alists and hash tables, and to denote variable
-references.”* This sounds pretty complicated, but we hope to make that become
+references.”* This sounds pretty complicated, but I hope to make that become
 clear soon.
 
 On a first level you can see symbols as “names for something”.

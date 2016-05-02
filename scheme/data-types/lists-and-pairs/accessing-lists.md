@@ -71,3 +71,8 @@ guile> (last '(1 2 3 4 . 5))
 ```
 
 #### Other Access Options
+
+**TODO:**
+
+* list-ref
+* list-tail etc.

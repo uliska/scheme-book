@@ -9,7 +9,7 @@ sloppily placed comments on mailing lists or ready-made corrections.
 
 Quoting is hidden beneath the keywords `quote`, `quasiquote`, `unquote` and
 `unquote-splicing` and their slightly confusing shorthands `'` (single quote),
-**TODO: How to print backtick** (backtick), `,` (comma) and `@` (at), combined
+<code>&#96;</code> (backtick), `,` (comma) and `@` (at), combined
 with picky requirements regarding the placement of parens.
 
 Being thrown back to one's own experimentation and to trying to adapt other's

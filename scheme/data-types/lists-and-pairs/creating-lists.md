@@ -72,7 +72,7 @@ myLastSym = red,green,blue
 {% endlilypond %}
 
 `mySym` and `myLastSym` are now identical and would be displayed just like
-regular lists.
+regular lists.  Note that there must not be spaces around the commas or dots.
 
 However, there is a caveat when entering symbol lists like that in LilyPond
 input files, namely the parser must be able to unambiguously identify the
@@ -82,7 +82,8 @@ symbols.  Concretely the elements must avoid
 * numbers
 * special characters
 
-all of which are perfectly acceptable in Scheme syntax.
+which are perfectly acceptable in Scheme syntax but have a different meaning for
+the LilyPond parser.
 
 Enter the following in a LilyPond file and study the resulting (somewhat re-formatted) error messages on the console output:
 

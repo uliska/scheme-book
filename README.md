@@ -28,7 +28,7 @@ integration of two different languages (LilyPond and Scheme) adds to the
 complexity, and the advanced interaction with LilyPond's internals gives yet
 another layer on top.
 
-The [introductory chapters](intro.html) give an outline to the different aspects
+The [introductory chapters](intro/index.html) give an outline to the different aspects
 to the complexity of understanding Scheme in LilyPond.  But in addition I have
 always felt that part of the problem is a lack of suitable learning resources.
 Unfortunately the [official
