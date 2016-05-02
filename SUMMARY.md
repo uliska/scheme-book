@@ -50,6 +50,7 @@ This is the summary of my book.
             * [Binding/Naming Procedures](scheme/procedures/binding.md)
             * [Predicates](scheme/predicates.md)
         * [Iterating Over Lists]()
+* [Scheme in LilyPond](lilypond/README.md)
     * [Music, Scheme and Void Functions](lilypond/functions/music-scheme-void.md)
         * [Interface of the functions](lilypond/functions/interface.md)
         * [Switching Between Scheme and LilyPond](lilypond/functions/switch-languages.md)
