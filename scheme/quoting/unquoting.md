@@ -1,7 +1,7 @@
 # Unquoting
 
 OK, we have seen the quoted and the explicit syntax to create lists and pairs,
-the difference being that in the `list` appraoch the elements are evaluated:
+the difference being that in the `list` approach the elements are evaluated:
 
 ```
 guile> '(red random 1)
@@ -27,7 +27,7 @@ guile> (list red 'random 1)
 ((1.0 0.0 0.0) random 1)
 ```
 
-But Scheme offers an alternative appraoch for this that you will encounter quite
+But Scheme offers an alternative approach for this that you will encounter quite
 often:
 
 ## Quasiquoting

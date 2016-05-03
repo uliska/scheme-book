@@ -16,19 +16,37 @@ relationship is considered an association list.
 In order to save some typing we start a session with defining an association list:
 
 ```
-guile> (define my-alist
-   '((color1 . red)
-     (color2 . green)
-     (color3 . blue)))
+guile>
+(define my-alist
+ '(
+    (color1 . red)
+    (color2 . green)
+    (color3 . blue)
+  )
+)
 guile> my-alist
 ((color1 . red) (color2 . green) (color3 . blue))
 ```
 
-I've created a list with the quoted syntax, and each element of the list is a
-pair associating an indexed color with a concrete color. It can be considered an
-alist but basically it is just a Scheme list with some specific characteristics.
-Therefore you can access its elements with the usual methods applicable to lists
-and pairs:
+This is not the commonly used Scheme layout but intends to give a better idea of
+the structure.  Normally the expression would be written in a more condensed
+manner (note particularly that all the trailing parens are lined up at the end
+of the last line), for example:
+
+```
+guile>
+(define my-alist
+ '((color1 . red)
+   (color2 . green)
+   (color3 . blue)))
+```
+
+Inside the `define` I created a list with three elements using the `'()` syntax,
+and each of these elements is a pair associating a name for a color with a
+concrete color.  This is a regular list of pairs, but one can say it is an
+association list because of that specific structure.  As it *is* a regular list
+you can access its elements with the usual methods applicable to lists and
+pairs:
 
 ```
 guile> (car my-alist)

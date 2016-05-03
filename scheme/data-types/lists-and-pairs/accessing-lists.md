@@ -6,7 +6,7 @@ pairs - which seems quite natural as lists are built from pairs.
 #### car/cdr Access
 
 In the previous chapter we have already seen how the `car` and the `cdr` of
-lists can be retrieved, and the `cadr` and friends shorthands are available for
+lists can be retrieved, and the `cadr` (and friends) shorthands are available for
 lists as well:
 
 ```

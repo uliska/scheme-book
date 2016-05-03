@@ -80,10 +80,9 @@ quotes break the string variable, which you can already see from the syntax
 highlighting.  LilyPond will in this case produce a pretty confusing error
 message but will at least point you to the offending line of the input file.
 
-*Note:*   This is only true for *straight* double quotes.  From the
-typographical perspective it is no good idea to use these in text anyway, so you
-should prefer using the language-specific conventions with alternative
-characters, e.g. for `”English”`, `„Deutsch”` or `«Français»`.
+*Note:* this is only true for straight double quotes.  From a typographical
+*perspective it is often better to use typographical (or "curly") quotes anyway
+*(e.g. `“English”`, `„Deutsch“` or `«Français»`).  These don't need escaping.
 
 #### The backslash
 
@@ -108,7 +107,7 @@ escape sequence it is possible to address characters numerically.  But while
 this only works for the very limited set of ASCII characters and doesn't support
 Unicode in general, this isn't generally possible for use in LilyPond strings.
 There are cases where it is possible while others don't work, but it can be said
-that it is generally not recommendable.  Instead there are two options to
+that it is generally not recommended.  Instead there are two options to
 include special characters, apart from the option of directly including the
 special characters in the input files - if all participating modules support
 that.

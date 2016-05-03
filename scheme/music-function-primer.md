@@ -9,7 +9,7 @@ chapter](lilypond/functions/music-scheme-void.html). In this chapter I will only
 give you a brief overview, and you can use these functions to experiment with
 the Scheme concepts discussed in the remainder of this bookpart.
 
-Music- scheme- and void-functions are expressions just like anything else in
+Music-, scheme- and void-functions are expressions just like anything else in
 Scheme. In light of the previous chapter you can say that music functions
 evaluate to a “music expression”, scheme functions evaluate to any Scheme value,
 and a void function's value is `#<unspecified>`.  That is, wherever you can
@@ -33,7 +33,7 @@ We use a variable name and assign it a (music) function. Following the keyword
 `define-scheme-function` is a list of parameter names (in the example just one),
 which is then followed by a list of *predicates* (see [data
 types](data-types/index.html)).  For each parameter there must be one predicate
-specifying the expected data type, in this case `color?`.
+specifying the expected data type, in this case `string?`.
 
 The function body can consist of an arbitrary number of expressions, where the
 last one specifies the return value (which is then substituted in the LilyPond
@@ -41,9 +41,9 @@ document).
 
 You may have seen such functions where the parameter list started with
 (literally) `parser location`.  This is not necessary anymore in LilyPond
-releases starting with the current 2.19 devel line.  The current stable release
-2.18.2 still requires this, but this is a topic that I won't discuss anymore in
-this book.
+releases starting with the current 2.19 development line.  The current stable
+release 2.18.2 still requires this, but this is a topic that I won't discuss
+anymore in this book.
 
 ### Scheme Functions
 

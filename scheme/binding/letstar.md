@@ -83,7 +83,7 @@ In fact the necessity to use the `let*` form is quite regular, and therefore
 many people tend to write `(let*` before thinking of the actual use case.  But
 while this works always one should consider that the added flexibility always
 comes at the cost of added computation, and while this may usually be
-neglectible it should be good practice not to use up resources without need.
+negligible it should be good practice not to use up resources without need.
 
 ### `letrec`
 

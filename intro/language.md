@@ -5,9 +5,13 @@ LilyPond is - Scheme itself.
 
 Learners who are not used to functional programming tend to find Scheme
 confusing, with the most prominent aspect being the overwhelming number of
-parens.  Cryptic error messages triggered by the slightest parenthesizing error
-are not likely to make the learning curve more pleasing.  In our experience
-*evaluating expressions*, as explained in detail in a [later
+parens *(“parens” is a shortname for “parentheses” and is often used colloquially
+in computer literature although it's dubious if that term can be considered
+proper English. However, as it “flows” much better while the proper term is
+comparably awkward I will stick to the shortened form throughout this book)*.
+Cryptic error messages triggered by the slightest parenthesizing error are not
+likely to make the learning curve more pleasing.  In my experience *evaluating
+expressions*, as explained in detail in a [later
 chapter](../scheme/expressions.html), is the first and most important concept
 that has to be thoroughly understood.  Once that has been digested, everything
 else will be much easier to comprehend.  I will try to make this learning

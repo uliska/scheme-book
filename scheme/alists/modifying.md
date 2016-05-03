@@ -140,10 +140,10 @@ page](https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Adding-or-Setti
 
  ```
  guile> (assq-remove! bool-alist 'subdivide)
-((color 0.0 1.0 0.0) (subdivide . #t) (use-color . #f))
+((color 0.0 1.0 0.0) (debug . #t) (subdivide . #t) (use-color . #f))
 
 guile> bool-alist
-((color 0.0 1.0 0.0) (subdivide . #t) (use-color . #f))
+((color 0.0 1.0 0.0) (debug . #t) (subdivide . #t) (use-color . #f))
 
 (assq-remove! bool-alist 'some-other-key)
 ((color 1.0 0.0 0.0) (debug . #t) (subdivide . #t) (use-color . #f))

@@ -1,8 +1,8 @@
 # Creating Pairs
 
 The basic unit of compound data types in Scheme is the *pair*, an item with two
-values.  Pairs are used very often as grob properties in LilyPond, so everybody
-should be familiar with seeing and entering them:
+values.  Pairs are used very often as properties for graphical score items in
+LilyPond, so everybody should be familiar with seeing and entering them:
 
 {% lilypond %}
 {

@@ -17,7 +17,7 @@ The general form of a `cond` expression is
 
 Each *clause* starts with a test, and if the test succeeds the clause is
 evaluated and its value returned.  The last clause may have the keyword `else`
-instead of a test, and if none of the previous tests succeed this final else
+instead of a test, and if none of the previous tests succeeds this final else
 clause is evaluated.
 
 ### Different Forms of clauses

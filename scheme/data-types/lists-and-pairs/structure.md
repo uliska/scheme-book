@@ -26,28 +26,28 @@ element.  As a consequence you can say that any list is also a pair but that a
 pair is not necessarily a list:
 
 ```
-guile> (define l (list 1 2 3 4))
-guile> (define p (cons 5 6))
-guile> l
+guile> (define lst (list 1 2 3 4))
+guile> (define pr (cons 5 6))
+guile> lst
 (1 2 3 4)
 guile> p
 (5 . 6)
-guile> (list? l)
+guile> (list? lst)
 #t
 guile> (list? p)
 #f
-guile> (pair? l)
+guile> (pair? lst)
 #t
 guile> (pair? p)
 #t
 ```
 
-Let's inspect the list `l` a little closer:
+Let's inspect the list `lst` a little closer:
 
 ```
-guile> (car l)
+guile> (car lst)
 1
-guile> (cdr l)
+guile> (cdr lst)
 (2 3 4)
 ```
 
@@ -135,10 +135,10 @@ The procedure `append` takes a list and appends another list at its end, as can
 be seen like this:
 
 ```
-guile> (define l (list 1 2 3 4))
-guile> l
+guile> (define lst (list 1 2 3 4))
+guile> lst
 (1 2 3 4)
-guile> (append l (list 5 6))
+guile> (append lst (list 5 6))
 (1 2 3 4 5 6)
 ```
 
@@ -152,7 +152,7 @@ is a coherent list `(1 2 3 4 5 6)`. Let's see what happens if we don't append a
 list but instead a pair:
 
 ```
-guile> (append l (cons 5 6))
+guile> (append lst (cons 5 6))
 (1 2 3 4 5 . 6)
 ```
 
@@ -163,7 +163,7 @@ a list but instead a plain value.
 The same is true if we append a literal value to the list:
 
 ```
-guile> (append l 5)
+guile> (append lst 5)
 (1 2 3 4 . 5)
 ```
 
@@ -174,10 +174,10 @@ Finally we check what happens when we try to append anything to the resulting
 improper list:
 
 ```
-guile> (define l2 (append l 5))
-guile> l2
+guile> (define lst2 (append lst 5))
+guile> lst2
 (1 2 3 4 . 5)
-guile> (append l2 6)
+guile> (append lst2 6)
 standard input:10:1: In procedure append in expression (append l2 6):
 standard input:10:1: Wrong type argument in position 1 (expecting empty list): 5
 ABORT: (wrong-type-arg)

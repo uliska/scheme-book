@@ -287,7 +287,7 @@ expression or a sequence thereof.  Whenever the complexity of the task suggests
 factoring out functionality in procedures this is done, but not through
 explicitly *calling* them but through expressions that implicitly invoke them,
 as we have discussed in this chapter.  Of course users can define their own
-procedures, which will be coverd later.  But any procedure can be understood as
+procedures, which will be covered later.  But any procedure can be understood as
 a single expression that - again - *evaluates* to its “result”.
 
 

@@ -8,7 +8,7 @@ proceeding to *lists*.
 #### Preparing the Ground
 
 To start off let us create a few pairs for later reuse (so we don't have to
-re-type them in the REPL), at the same time taking the opportunity to practice
+re-type them in the REPL), at the same time taking the opportunity to practise
 the creation of pairs:
 
 ```
@@ -177,7 +177,7 @@ variations available that can be looked up in the [Guile
 reference](http://www.gnu.org/software/guile/manual/guile.html#Pairs).  The
 meaning of these procedures can be “resolved” by considering each `a` in
 the name as “the car of” and each `d` as “the cdr of”. So `cdar` can be
-resolved to “ the cdr of the cdar of <some-value>”, `caddar` would be “the car
+resolved to “ the cdr of the car of <some-value>”, `caddar` would be “the car
 of | the cdr of | the cdr of | the car of” something.  Of course the value that
 is passed to such a procedure must *have* a corresponding level of nesting,
 otherwise it will trigger an error:
