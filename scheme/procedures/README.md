@@ -15,10 +15,8 @@ stored in pairs or whatever.  We will discuss this in more detail in the
 following chapters.
 
 There are different ways `lambda`-generated procedures handle arguments, which
-is important enough to warrant a dedcicated chapter
-
-Some words have to be spent on the binding of procedures to names, which is how
-procedures can actually made useful.
-
-Finally we will have a closer look at a specific type of procedures: predicates.
-The main use of this chapter is to get some practice with writing procedures.
+is important enough to warrant a dedicated chapter.  Some words have to be spent
+on the binding of procedures to names, which is how procedures can actually be
+made useful.  And finally we will have a closer look at a specific type of
+procedures: predicates. The main use of this chapter is to get some practise
+with writing procedures.

@@ -8,9 +8,13 @@ As said in the previous introduction `lambda` is an expression that creates - or
 ```
 
 `<formals>` is where the *arguments* are specified that the procedure will be
-applied to, and `expressions` is an arbitrary number of expressions that is
-evaluated in sequence.  As usual the value of the last expression will become
-the value of the procedure as a whole.  But let's consider this with an example:
+applied to.  There are three forms for this specification, and I will discuss
+the differences in the next chapter.  In this chapter we're using the most common
+form.
+
+`<expressions>` is an arbitrary number of expressions that is evaluated in
+sequence.  As usual the value of the last expression will become the value of
+the procedure as a whole.  But let's consider this with an example:
 
 ### Creating a procedure
 
@@ -19,9 +23,12 @@ guile> (lambda (x) (+ x x))
 #<procedure #f (x)>
 ```
 
-We can see from the printed result that our expression *is* a procedure, but it
-may not be as obvious how that expression works. We can investigate this by
-reformatting the expression:
+The printed result (remember that the Scheme console immediately prints the
+*value* of the expression typed in) gives us three informations:  first that it
+is a *procedure* that we've created, second that it does *not* have a name (the
+`#f`) and finally the expected argument list.  What it *doesn't* tell us is how
+the procedure creation works.  In order to investigate this we reformat the
+expression:
 
 ```
 (lambda
@@ -32,7 +39,9 @@ reformatting the expression:
 
 The first argument to `lambda` is `(x)`.  This tells the parser that the
 procedure will accept exactly one argument, and this argument will be visible by
-the name of `x` in the body of the procedure.
+the name of `x` in the body of the procedure.  When the formals are written as a
+list like here then each element of the list represents the name of one actual
+parameter the procedure expects.
 
 The body of the procedure consists of the single expression `(+ x x)` which
 simply takes the argument `x` and adds it to itself.  The result of this
@@ -51,7 +60,8 @@ problem can be that possible errors occur within the procedure and not at its
 interface, which can make them harder to pinpoint.  On the other hand this opens
 a lot of potential for “polymorphism”, that is the possibility to write a single
 interface that behaves differently depending on the type of arguments that are
-passed into it.
+passed into it.  We will discuss this aspect in a [later
+chapter](parameter-types.html).
 
 ### *Using* the Procedure
 
@@ -74,7 +84,17 @@ guile>
 We have an enclosing pair of parens to denote the *procedure application*, then
 the definition of the procedure in the first position, followed by a number as
 the single argument.  The expression correctly evaluates to 24, which
-corresponds to 12 + 12.
+corresponds to 12 + 12.  You should clearly see that this whole `lambda`
+expression is in the place where we'd normally place a procedure name, like
+
+```
+guile>
+(
+ random
+ 12
+)
+7
+```
 
 Of course it rarely makes sense to create a procedure just for a single
 application, but for now we'll stick to that approach and dedicate a full
@@ -121,156 +141,3 @@ Y: 12
 In the last three lines we can see the printout from the `display` procedure and
 finally the *value* of the expression.  *(You may make a mental note of the
 characteristic double paren at the opening of this expression.)*
-
-### Exercise: Handle Different Parameter Data types
-
-As an exercise we will rewrite the second example so that it can handle the
-input arguments as either numbers or strings.  As this might become an exercise
-with some iterations we will implement it in a LilyPond file instead of the
-Scheme REPL.  The first iteration is basically a “LilyPondified” version of the
-previous example, wrapping the whole expression in a `display` but leaving the
-two  redundant expressions in the procedure body that correctly prints `21` to
-the console:
-
-{% lilypond %}
-#(display
-  ((lambda (x y)
-     (+ x y))
-   9 12))
-{% endlilypond %}
-
-#### First Case: Both Arguments must have the same case
-
-Now we want to support the possibility of alternatively passing the arguments in
-the form `"9" "12"` as strings, which doesn't work with the current function as `+`
-can only be used with numbers.  This is a primary use case for a conditional
-expression, and in this case we should use `cond` because we have more than two
-possible cases:
-
-```
-(cond
-  (both numbers: simply add them)
-  (both strings: convert them to numbers,
-   add them,
-   convert the result back to a string)
-  (else: report an error)
-)
-```
-
-We'll start by integrating the conditional expression in our procedure but leave
-out the strings part in the first step.  As we want *both* arguments to be of
-the same type we will use nested `and` expressions in each clause's test:
-
-{% lilypond %}
-#(display
-  ((lambda (x y)
-     (cond
-      ((and (number? x) (number? y))
-       (+ x y))
-      ((and (string? x) (string? y))
-       "calculation not implemented yet")
-      (else
-       "Type error with the arguments")))
-   "9" "12"))
-{% endlilypond %}
-
-The first clause of the `cond` is evaluated if both arguments are numbers while
-the second is used when both arguments are strings - which is the case in this
-example, therefore the corresponding message is printed to the console.
-
-To convert numbers to and from  strings Scheme has the procedures
-`number->string` and `string->number` which we'll both use for the
-implementation of the second clause. In other languages we might be tempted to
-do that operation in three consecutive expressions, but in Scheme we will create
-one single expression which will be evaluated inside out:
-
-```
-(
-  number->string
-    (+
-      (string->number x)
-      (string->number y)
-    )
-)
-```
-
-First (inside) the two arguments are converted to numbers, then they are passed
-to `+`, and finally the value of the `+` expression is converted back to a
-string. Integrated into the complete procedure this looks like this:
-
-{% lilypond %}
-#(display
-  ((lambda (x y)
-     (cond
-      ((and (number? x) (number? y))
-       (+ x y))
-      ((and (string? x) (string? y))
-       (number->string
-        (+
-         (string->number x)
-         (string->number y))))
-      (else
-       "Type error with the arguments")))
-   "9" "12"))
-{% endlilypond %}
-
-which now correclty prints `21`
-
-This procedure already looks pretty daunting, isn't it?  But if you have
-followed me to this point you should by now realize that such constructs are
-really built from smaller and smallest building blocks.  If you are careful
-about the nesting of expressions and do that by dissecting the intention of your
-procedure it should really be possible to determine how many parens are needed
-and where they have to be placed.
-
-There is one thing I have left out in this example: checking if the strings
-actually represent numbers. If you pass `"9" "foo"` the procedure will fail. You
-may want taking that challenge as an exercise on your own.  As a hint I can tell
-you that `string->number` returns `#f` in case of failure.
-
-
-#### Second Case: Treat Parameters Independently
-
-In the first example both parameters had to have the same type, being either
-both numbers of both strings.  However, as a second exercise we'll make this
-more general by saying that each parameter can be a number or a string
-independently.  The return will always be a number.
-
-There are (at least) two different approaches to the task, but I deliberately
-choose the one where we can practice local bindings with `let`.  This time we
-don't need to check whether *both* arguments are of the same type but instead
-want to ensure there is a number available for the addition.  To achieve that we
-will create local bindings and convert the parameters if necessary.
-
-For each of the parameters we determine whether it is a string and convert that
-to a number, otherwise we directly bind the parameter to the local name. Remember
-that an `and` expression's value is that of the last subexpression, in our case
-the converted number.
-
-```
-(let
-  ((x-num
-    (or
-        (and (string? x)
-        (string->number x))
-    x))
-...
-```
-
-{% lilypond %}
-#(display
-  ((lambda (x y)
-     (let
-      ((x-num
-        (or
-         (and (string? x)
-              (string->number x))
-         x))
-       (y-num
-        (or
-         (and (string? y)
-              (string->number y))
-         y)))
-      (+ x-num y-num)))
-   9 "12"))
-{% endlilypond %}
