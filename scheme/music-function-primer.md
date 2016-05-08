@@ -15,7 +15,7 @@ evaluate to a “music expression”, scheme functions evaluate to any Scheme va
 and a void function's value is `#<unspecified>`.  That is, wherever you can
 write music (and overrides are “music” too) you can instead write a music
 function, wherever you can use a Scheme value (for example assigning values to
-overrides) you can instead write a scheme functions, and void functions can be
+overrides) you can instead write a scheme function, and void functions can be
 used whenever no return value is needed but something has got to be *done*.
 
 All three forms basically look the same, and I will demonstrate this with a
@@ -47,9 +47,10 @@ anymore in this book.
 
 ### Scheme Functions
 
-Scheme functions are created using the `define-scheme-function` keyword.  They
-evaluate the Scheme value (of arbitrary type) that the last expression in
-its body evaluates to, and this value is then used in the LilyPond document:
+As we've seen Scheme functions are created using the `define-scheme-function`
+keyword.  They evaluate the Scheme value (of arbitrary type) that the last
+expression in its body evaluates to, and this value is then used in the LilyPond
+document:
 
 {% lilypond %}
 mySchemeFunction =
@@ -90,6 +91,9 @@ myMusicFunction =
   d'8
 }{% endlilypond %}
 
+The  `#{ #}` is *one* Scheme expression, but as in any LilyPond music expression
+it can have many consecutive elements like the overrides in this example.
+
 ### Void Functions
 
 Void functions are created using the `define-void-function` keyword.  Regardless
@@ -104,5 +108,5 @@ myVoidFunction =
    (number?)
    (display (* 2 a-value)))
 
-\myVoidFunction
+\myVoidFunction 4
 {% endlilypond %}
