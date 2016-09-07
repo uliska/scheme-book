@@ -31,7 +31,7 @@ typed” languages like Java or C++ the function interface would already act as 
 shield against arguments with wrong types.  The `"1"` and `"2"` wouldn't even
 reach the `+`, so to say.  Other languages, like e.g. Python or JavaScript will
 try to make the best out of it. In the example they would both *concatenate* the
-two digits and return `"11"`.
+two digits and return `"12"`.
 
 So Scheme doesn't check the type of an argument passed into an expression but
 doesn't do anything to help with improper types either.  This is an important
