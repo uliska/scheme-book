@@ -1,7 +1,8 @@
 # Accessing Lists
 
 Accessing lists and retrieving their elements is really similar to handling
-pairs - which seems quite natural as lists are built from pairs.
+pairs - which seems quite natural as lists are built from pairs.  In this
+chapter we will discuss the basic procedures to access list elements.
 
 #### car/cdr Access
 
@@ -45,34 +46,9 @@ As a mental exercise think about what the `cdar` of this list would be and why
 second question should be clear).
 
 
-#### first/second Access
-
-**TODO:** Check where these are really defined
-
-Guile defines a number of convenience accessor methods to retrieve list elements
-by their position specified in English words:
-
-```
-guile> (first l)
-1
-guile> (second l)
-2
-```
-
-Such procedures are defined for the first ten elements of a list (i.e. `first`
-through `tenth`). In addition there is the `last` procedure that always
-retrieves the `car` of the last list element. This means it is not necessary
-anymore to explicitly unfold the value using `car`.  But it *may* produce
-unexpected results when the list is an improper list:
-
-```
-guile> (last '(1 2 3 4 . 5))
-4
-```
-
 #### Other Access Options
 
-**TODO:**
-
-* list-ref
-* list-tail etc.
+Scheme and Guile provide much more convenient ways to handle lists and their
+elements.  However, I think these should better be discussed after you are
+familiar with more basic concepts.  Therefore I have moved the more elaborate
+access methods to a [separate chapter](../../lists/index.html).
