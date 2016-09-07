@@ -71,8 +71,26 @@ mixed with the verbal ones, like e.g. `(quasiquote (,red random 1))`.
 
 ## Unquoting a List
 
-**To be written:** `unquote-splicing`
+When unquoting an element that happens to be a list this list is inserted into
+the surrounding list as a single item, such as
 
+```
+guile> `(1 2 ,(list 3 4) 5)
+(1 2 (3 4) 5)
+```
+
+However, there are many occasions where you will want the individual items of
+that list to be inserted in the resulting list.  This can be achieved with the
+`unquote-splicing` syntax or its shorthand “comma-at” `,@`:
+
+```
+guile> `(1 2 ,@(list 3 4) 5)
+(1 2 3 4 5)
+```
+
+To be more concrete, in a quasiquoted expression `unquote-splicing` takes any
+Scheme expression that evaluates to a list and inserts the elements individually
+in the surrounding list.
 
 ## Nesting `quasiquote` Levels
 
