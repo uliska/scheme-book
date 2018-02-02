@@ -23,7 +23,7 @@ scheme function as an example:
 
 {% lilypond %}
 mySchemeFunction =
-#(define-scheme-function (name)
+#(define-scheme-function (argument-name)
    (string?)
    ; function body
    )
