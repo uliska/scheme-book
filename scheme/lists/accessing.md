@@ -120,7 +120,7 @@ colloquially be expressed much clearer as the “number of retrieved elements”
 If an actual sub-list is required the procedures can be stacked/nested:
 
 ```
-guile> (list-head (list-tail original 2) 2)
+guile> (list-head (list-tail lst 2) 2)
 (3 4)
 ```
 
