@@ -59,7 +59,7 @@ mySchemeFunction =
    (string-append name " | " name)
    )
 
-\paper {
+\header {
   title = \mySchemeFunction "Doubled Title"
 }
 {% endlilypond %}
