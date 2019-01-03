@@ -73,4 +73,8 @@ already gives an impression of what's planned, but experience tells that it
 will be both refined and extended during the actual writing process.  If you
 find actual errors or sections that could be expressed more clearly, don't
 hesitate to contact me and/or open an issue at the book's [Issue
-Tracker](https://git.openlilylib.org/uliska/book-scheme/issues).
+Tracker](https://github.com/uliska/scheme-book/issues).
+
+*NOTE: This book is available on https://scheme-book.ursliska.de but currently
+it cannot be built, so the online version is not up-to-date against the state
+of the sources in this repository.*
