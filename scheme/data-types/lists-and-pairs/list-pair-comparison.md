@@ -15,7 +15,7 @@ chapter:
 ```
 guile> (define l (cons 1 (cons 2 (cons 3 (cons 4 (cons 5 (cons 6 '())))))))
 guile> l
-(1 2 3 4)
+(1 2 3 4 5 6)
 ```
 
 Earlier we had visualized the structure of the nested pair in a pseudo-code
