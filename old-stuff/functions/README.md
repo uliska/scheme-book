@@ -6,7 +6,7 @@ It's been about a year since I started a category with [Scheme tutorials](http:/
 
 Today I'm writing a tutorial that I would have needed a year ago ;-) about one thing that always vaguely confused me. I usually managed to just get around it by either routinely "doing it as always" or by getting some ready-to-use code snippets from a friendly soul on lilypond-user.  This is the topic of defining `music-`/`scheme-` and `void-`functions in Scheme. I will analyze a music function I introduced in last years' posts and explain what is going on there. Understanding this gave me surprising insights, and I think knowing this kind of stuff is really helpful when trying to get more familiar with using Schem## Special Elements
 
-### Author(s)
+## Author(s)
 
 Each page can have a (single) block naming the main author(s) of the
 page/chapter and (optionally)  give additional information about the authorship.
@@ -40,7 +40,7 @@ an empty dummy author at the end of the list, as the issue will go away
 automatically and we would have to update the items manually otherwise.
 The current page is an exception to demonstrate the cause.
 
-### Credits Info
+## Credits Info
 
 Each page should print an info box giving detailed credits about all editors and
 authors of the page.  This information is generated automatically, and there is
@@ -53,17 +53,18 @@ automatically (yet), therefore authors should literally place
 
 at the bottom of each page.
 
-ne-music-function</span> <span class="scheme-delimiter">(</span><span class="scheme-scheme">parser</span> <span class="scheme-scheme">location</span> <span class="scheme-scheme">my-color</span><span class="scheme-delimiter">)</span>
-   <span class="scheme-delimiter">(</span><span class="scheme-function function">color?</span><span class="scheme-delimiter">)</span>
-   <span class="scheme-lilypond">#{</span>
-     <span class="lilypond-keyword keyword">\once</span> <span class="lilypond-keyword keyword">\override</span> <span class="lilypond-grob">NoteHead</span><span class="lilypond-delimiter keyword">.</span><span class="lilypond-variable variable">color</span> = <span class="scheme-scheme">#my-color</span>
-     <span class="lilypond-keyword keyword">\once</span> <span class="lilypond-keyword keyword">\override</span> <span class="lilypond-grob">Stem</span><span class="lilypond-delimiter keyword">.</span><span class="lilypond-variable variable">color</span> = <span class="scheme-scheme">#my-color</span>
-   <span class="scheme-lilypond">#}</span><span class="scheme-delimiter">)</span>
+```
+ne-music-function (parser location my-color)
+   (color?)
+   #{
+     \once \override NoteHead.color = #my-color
+     \once \override Stem.color = #my-color
+   #})
 
-<span class="lilypond-delimiter keyword">{</span>
-  <span class="lilypond-pitch">c</span><span class="lilypond-octave">'</span> <span class="lilypond-usercommand variable">\colorNote</span> <span class="scheme-scheme">#</span><span class="scheme-variable variable">red</span> <span class="lilypond-pitch">d</span><span class="lilypond-octave">'</span> <span class="lilypond-pitch">c</span><span class="lilypond-octave">'</span>
-<span class="lilypond-delimiter keyword">}</span>
-</pre>
+{
+  c' \colorNote #red d' c'
+}
+```
 
 *(See the [other post](http://lilypondblog.org/2014/03/music-functions-2-start-doing-something-useful/) for the output of that example.)*
 
@@ -71,34 +72,36 @@ This is something I knew how to put together for quite some time, but I've alway
 
 In the current post I will go into quite some detail about the declaration/definition of the music function and the topic of "return values". However, I'll skip the third issue because that's somewhat unrelated to the other two and because the post is already quite long without it.
 
-### Defining the Music Function
+## Defining the Music Function
 
-Let's start with looking at it from the perspective of the "user" or "caller". `colorNote` is a "music function" that returns a "music expression". This is the part enclosed in the <code><span class="scheme-lilypond">#{</span> <span class="scheme-lilypond">#}</span></code> brackets, containing two overrides (yes, overrides are also "music") and applying the `#my-color` argument passed into the function. So when writing <code><span class="lilypond-usercommand variable">\colorNote</span> <span class="scheme-scheme">#</span><span class="scheme-variable variable">red</span></code> it's quite obvious that I call the *function* `colorNote`, passing it the *argument* `#red`.
+Let's start with looking at it from the perspective of the "user" or "caller". `colorNote` is a "music function" that returns a "music expression". This is the part enclosed in the `#{ #}` brackets, containing two overrides (yes, overrides are also "music") and applying the `#my-color` argument passed into the function. So when writing `\colorNote #red` it's quite obvious that I call the *function* `colorNote`, passing it the *argument* `#red`.
 
 But the syntax of how this "function" is defined somehow always startled me, and I'm sure there are many others who could write such a function too, without really knowing what they are doing. Let's have a look at a comparable function definition in Python (for those who know Python):
 
-<pre lang="python">
+```python
 def colorNote(parser location color):
-    return some_music_expression</pre>
+    return some_music_expression
+````
 
 Here the syntax is clear that we are defining `colorNote` to be a function object, taking some arguments and returning a value. When we *use* that function later in the code the program execution will jump right into the body of that function definition. But what do we actually do when "defining a music function" in LilyPond?
 
 From the LilyPond documentation (and last year's posts) we learn that the following expressions are equivalent:
 
-<pre class="lilypond"><span class="lilypond-uservariable">myVariable</span> = <span class="lilypond-value value">5</span>
-
-<span class="scheme-scheme">#</span><span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">define</span> <span class="scheme-scheme">myVariable</span> <span class="scheme-number value">5</span><span class="scheme-delimiter">)</span></pre>
+```
+myVariable = 5
+#(define myVariable 5)
+```
 
 Both define a variable `myVariable` and set its value to the integer number `5`. Or, expressed the other way round, they take the value of `5` and *bind* it to the name `myVariable`. Later in the program (or the LilyPond file) one can refer to this name and get the value back.
 
 We can rewrite the definition using the `#(define` syntax like this:
 
-<pre class="lilypond"><span class="scheme-scheme">#</span><span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">define</span> <span class="scheme-scheme">colorNote</span>
-   <span class="scheme-delimiter">(</span><span class="scheme-function function">define-music-function</span> <span class="scheme-delimiter">(</span><span class="scheme-scheme">parser</span> <span class="scheme-scheme">location</span> <span class="scheme-scheme">my-color</span><span class="scheme-delimiter">)</span>
-     <span class="scheme-delimiter">(</span><span class="scheme-function function">color?</span><span class="scheme-delimiter">)</span>
+```
+#(define colorNote
+   (define-music-function (parser location my-color)
+     (color?)
      ; ...
-</pre>
-
+```
 
 So what is the value we are binding to the name `colorNote` in our example?
 
@@ -112,9 +115,9 @@ So what we really do with our music function is *call* `define-music-function` w
 `define-music-function <argument-list> <argument-predicates> <body>` itself takes three arguments, each enclosed in its own parenthesis (here the parens are used for grouping items to a list and not for a procedure call):
 
 - the list of argument names:
-  <span class="scheme-delimiter">(</span><span class="scheme-scheme">parser</span> <span class="scheme-scheme">location</span> <span class="scheme-scheme">my-color</span><span class="scheme-delimiter">)</span>
+  (parser location my-color)
 - a list of argument predicates (types that the arguments have to have)
-  <span class="scheme-delimiter">(</span><span class="scheme-function function">color?</span><span class="scheme-delimiter">)</span>
+  (color?)
 - the actual implementation body
 
 `my-color` is an arbitrary name that has been chosen for an argument.  It lets you access the value that has been passed into the music function at that position. Note that this is the only argument that the user has to supply when calling the music function, `parser` and `location` are passed implicitly. According to the manual `parser location` simply has to be copied literally, which is also confusing - but we won't go into this detail today.
@@ -123,7 +126,7 @@ So what we really do with our music function is *call* `define-music-function` w
 
 **Side note:** *You also can define music functions that don't have such arguments, so the first element in `define-music-function` would be `(parser location)`. It has always startled me why I'd have to add `()` in such cases, but now this becomes clear: `define-music-function` expects a list of argument predicates as its second argument, and if there are no arguments to be type-checked then this second argument is still expected, and  an empty list has to be passed as the `<argument-predicates>`.*
 
-### The "Return Value" - Music-, Scheme- and Void Functions
+## The "Return Value" - Music-, Scheme- and Void Functions
 
 **Digression:** "Procedures" and "Functions"
 
@@ -135,9 +138,11 @@ Other languages don't make a distinction and call both types procedures or funct
 
 The implementation of the Scheme programming language that is used by LilyPond is [Guile 1.8](https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/). In this basically everything is considered a *procedure*, regardless of having a return value or not. Take the following expression:
 
-<pre class="lilypond"><span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">car</span> <span class="scheme-scheme">'</span><span class="scheme-delimiter">(</span><span class="scheme-number value">1</span> <span class="scheme-number value">2</span> <span class="scheme-number value">3</span> <span class="scheme-number value">4</span> <span class="scheme-number value">5</span><span class="scheme-delimiter">))</span></pre>
+```
+(car '(1 2 3 4 5))
+```
 
-This *expression* is a *procedure call*, namely the call to the procedure `car`. The list `'(1 2 3 4 5)` is passed as the *argument* to `car`, which *evaluates to* `1`, the first element of the list. So the *"return value"* that is then used in the program is `1`. Other procedures, for example <code><span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">display</span> <span class="scheme-scheme">'</span><span class="scheme-delimiter">(</span><span class="scheme-number value">1</span> <span class="scheme-number value">2</span> <span class="scheme-number value">3</span> <span class="scheme-number value">4</span> <span class="scheme-number value">5</span><span class="scheme-delimiter">))</span></code> do *not* evaluate to anything, so the "value" in the place of the procedure call is `<unspecified>`.
+This *expression* is a *procedure call*, namely the call to the procedure `car`. The list `'(1 2 3 4 5)` is passed as the *argument* to `car`, which *evaluates to* `1`, the first element of the list. So the *"return value"* that is then used in the program is `1`. Other procedures, for example <code>(display '(1 2 3 4 5))</code> do *not* evaluate to anything, so the "value" in the place of the procedure call is `<unspecified>`.
 
 Both are called "procedure" in Guile's terminology although one returns a value and the other does not. However, you will often encounter the naming convention of calling the "returning" versions "function". This is actually against the official naming convention of the Scheme dialect that LilyPond uses, but it is quite common and doesn't pose a real-world problem. And - as far as I can see - this is also true for the terms "music function", "scheme function" and "void function".
 
@@ -153,59 +158,64 @@ Now, what are `scheme-` and `void-`functions then?
 
 The whole subject of defining these functions/procedures is identical to the definition and calling of music functions, the only (but crucial) difference is the *return value*. A procedure defined using `define-scheme-function` can return any valid Scheme value, and it can be used anywhere the respective Scheme value can be used. The following example takes a string as its argument and returns sort of a palindrome version (just for the sake of the example). The type of the return value is `string?`, and this can for example be used to set a header field.
 
-<pre class="lilypond"><span class="lilypond-uservariable">addPalindrome</span> =
-<span class="scheme-scheme">#</span><span class="scheme-delimiter">(</span><span class="scheme-function function">define-scheme-function</span> <span class="scheme-delimiter">(</span><span class="scheme-scheme">parser</span> <span class="scheme-scheme">location</span> <span class="scheme-scheme">my-string</span><span class="scheme-delimiter">)</span>
-     <span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">string?</span><span class="scheme-delimiter">)</span>
-     <span class="scheme-delimiter">(</span><span class="scheme-function function">ly:message</span> <span class="scheme-string string">"We will add the reverse of the string to itself"</span><span class="scheme-delimiter">)</span>
-     <span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">string-append</span> <span class="scheme-scheme">my-string</span> <span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">string-reverse</span> <span class="scheme-scheme">my-string</span><span class="scheme-delimiter">))</span>
-     <span class="scheme-delimiter">)</span>
+```
+addPalindrome =
+#(define-scheme-function (parser location my-string)
+     (string?)
+     (ly:message "We will add the reverse of the string to itself")
+     (string-append my-string (string-reverse my-string))
+     )
 
-<span class="lilypond-keyword keyword">\header</span> <span class="lilypond-delimiter keyword">{</span>
-  <span class="lilypond-variable variable">title</span> = <span class="lilypond-usercommand variable">\addPalindrome</span> <span class="lilypond-string string">"OT"</span>
-<span class="lilypond-delimiter keyword">}</span>
+\header {
+  title = \addPalindrome "OT"
+}
 
-<span class="lilypond-delimiter keyword">{</span>
-  <span class="lilypond-pitch">c</span><span class="lilypond-octave">'</span>
-<span class="lilypond-delimiter keyword">}</span></pre>
+{
+  c'
+}
+```
 
 The "body" of this procedure is a sequence of two expressions. The first one `(ly:message` prints something to the console output but doesn't evaluate to a value, the second is the call to `string-append`, which is a procedure call that evaluates to a string.
 
 **Side note 1:** *Here again you can see an example of nested procedure calls and their evaluations: `string-append` here takes two arguments, the first being a value (namely the argument `my-string`), while the second argument is again a procedure call. The operations that Scheme actually performs one after another are:*
 
-<pre class="lilypond">
-<span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">string-append</span> <span class="scheme-scheme">my-string</span> <span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">string-reverse</span> <span class="scheme-scheme">my-string</span><span class="scheme-delimiter">))</span>
-<span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">string-append</span> <span class="scheme-scheme">my-string</span> <span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">string-reverse</span> <span class="scheme-string string">"OT"</span><span class="scheme-delimiter">))</span>
-<span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">string-append</span> <span class="scheme-scheme">my-string</span> <span class="scheme-string string">"TO"</span><span class="scheme-delimiter">)</span>
-<span class="scheme-delimiter">(</span><span class="scheme-keyword keyword">string-append</span> <span class="scheme-string string">"OT"</span> <span class="scheme-string string">"TO"</span><span class="scheme-delimiter">)</span>
-<span class="scheme-string string">"OTTO"</span>
-</pre>
+```
+(string-append my-string (string-reverse my-string))
+(string-append my-string (string-reverse "OT"))
+(string-append my-string "TO")
+(string-append "OT" "TO")
+"OTTO"
+```
 
 So the nested expression in the first line of this example eventually evaluates to "OTTO". And as this is the last expression in the procedure body its value will be the return value of the procedure as a whole, which in this example is used as the title of the score.
 
-**Side note 2:** *You can see that there is a single closing parenthesis on the last line of the procedure. This matches the opening paren in <code><span class="scheme-scheme">#</span><span class="scheme-delimiter">(</span><span class="scheme-function function">define-scheme-function</span></code>. Scheme's coding guidelines suggest not to place parens on their own lines but rather concatenate them at the end of previous lines. As you can already see in these simple examples nesting procedure calls can quickly build up, so it's not uncommon to encounter Scheme procedures with, say, ten closing parens in the last line. However, I laid it out like this to explicitly show that each line in the example is one expression. Temporarily reformatting is a very useful tool for debugging procedures or to understand the structure of existing procedures you are looking at. Don't hesitate to insert line breaks and make use of your editor's assistance to re-indent the code as this will make things much clearer. Once everything is ready it's advisable to re-compress the procedure again, even if you are used to other layouts that are common in other programming languages.*
+**Side note 2:** *You can see that there is a single closing parenthesis on the last line of the procedure. This matches the opening paren in <code>#(define-scheme-function</code>. Scheme's coding guidelines suggest not to place parens on their own lines but rather concatenate them at the end of previous lines. As you can already see in these simple examples nesting procedure calls can quickly build up, so it's not uncommon to encounter Scheme procedures with, say, ten closing parens in the last line. However, I laid it out like this to explicitly show that each line in the example is one expression. Temporarily reformatting is a very useful tool for debugging procedures or to understand the structure of existing procedures you are looking at. Don't hesitate to insert line breaks and make use of your editor's assistance to re-indent the code as this will make things much clearer. Once everything is ready it's advisable to re-compress the procedure again, even if you are used to other layouts that are common in other programming languages.*
 
 
 Probably you can by now guess what a *void-function* is - basically the same as the other two, but *without* a return value. So you will want to use `define-void-function` when you want the procedure to actually *do* something (also known as "side effects") but don't need any return value. The following example will print out a message to the console:
 
-<pre class="lilypond"><span class="lilypond-uservariable">displayLocation</span> =
-<span class="scheme-scheme">#</span><span class="scheme-delimiter">(</span><span class="scheme-function function">define-void-function</span> <span class="scheme-delimiter">(</span><span class="scheme-scheme">parser</span> <span class="scheme-scheme">location</span><span class="scheme-delimiter">)</span>
-     <span class="scheme-delimiter">()</span>
-     <span class="scheme-delimiter">(</span><span class="scheme-function function">ly:input-message</span> <span class="scheme-scheme">location</span> <span class="scheme-string string">"This was called from a 'void-function'"</span><span class="scheme-delimiter">)</span>
-     <span class="scheme-delimiter">)</span>
+```
+displayLocation =
+#(define-void-function (parser location)
+     ()
+     (ly:input-message location "This was called from a 'void-function'")
+     )
 
-<span class="lilypond-delimiter keyword">{</span>
-  <span class="lilypond-pitch">c</span><span class="lilypond-octave">'</span>
-  <span class="lilypond-usercommand variable">\displayLocation</span>
-<span class="lilypond-delimiter keyword">}</span></pre>
+{
+  c'
+  \displayLocation
+}
+```
 
 There is just one expression in the function body, printing a message. In the case of `define-void-function` it doesn't matter if this (respectively the last) expression evaluates to something or not, the function won't return any value at all. This also has the effect that you can actually call void functions from *anywhere*. The parser won't try to use them as a value but will simply execute its code. So the following example is equally valid and working.
 
-<pre class="lilypond"><span class="lilypond-uservariable">displayLocation</span> =
-<span class="scheme-scheme">#</span><span class="scheme-delimiter">(</span><span class="scheme-function function">define-void-function</span> <span class="scheme-delimiter">(</span><span class="scheme-scheme">parser</span> <span class="scheme-scheme">location</span><span class="scheme-delimiter">)()</span>
-   <span class="scheme-delimiter">(</span><span class="scheme-function function">ly:input-message</span> <span class="scheme-scheme">location</span> <span class="scheme-string string">"This was called from a 'void-function'"</span><span class="scheme-delimiter">))</span>
+```
+displayLocation =
+#(define-void-function (parser location)()
+   (ly:input-message location "This was called from a 'void-function'"))
 
-<span class="lilypond-usercommand variable">\displayLocation</span>
-</pre>
+\displayLocation
+```
 
 I hope this post helped you understanding a few basic things about how music, scheme, and void functions work and how they are integrated in LilyPond documents. This is only a tiny start, but understanding these concepts thoroughly definitely helps with proceeding to more complex and more powerful functions. As a final "assignment" I'll leave it to you to figure out what the `location` does in the last example, how it is used and how its value actually got into the function.
 
