@@ -29,7 +29,7 @@ The `#` tells LilyPond's parser to parse one complete Scheme expression, which
 happens to be the *pair* `'(2 . 1)` (a later [chapter](data-types/index.html)
 will go into more details about Scheme's data types.)
 
-#### Exceptions
+### Exceptions
 
 LilyPond very much “thinks” like Scheme, and all input will internally be
 converted to Scheme.  Therefore some data types can be entered literally,
@@ -71,7 +71,7 @@ completely different meaning).  Again, the following assignments are equivalent:
  them at a later point.  For now you should only keep in mind that you have to
  use `#` to switch to Scheme syntax - but not *always*.
 
-#### Displaying Scheme Values
+### Displaying Scheme Values
 
 Sometimes it is necessary, and for learning it is often enlightening, to print
 some Scheme values to the console.  To start with, there are two ways to do so,
@@ -97,7 +97,7 @@ There are some notable differences between the commands:
 We will regularly use these methods for demonstrating parts of our code in the
 subsequent chapters.
 
-#### LilyPond and Scheme variables
+### LilyPond and Scheme variables
 
 Another thing to note is that LilyPond variables are interchangeable with Scheme
 variables in LilyPond input files.  Variables can be defined using either

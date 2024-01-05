@@ -1,6 +1,6 @@
 # Understanding Scheme In LilyPond
 
-### Urs Liska
+## Urs Liska
 
 [GNU LilyPond](http://lilypond.org) is an extremely powerful and versatile text
 based music notation system with a strong focus on traditional craftsmanship and
