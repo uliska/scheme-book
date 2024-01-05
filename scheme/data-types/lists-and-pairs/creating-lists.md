@@ -44,7 +44,7 @@ guile> (list 'red 12 random (random 12))
 (red 12 #<primitive-procedure random> 1)
 ```
 
-#### Symbol Lists in LilyPond
+## Symbol Lists in LilyPond
 
 There is a special kind of list that is needed regularly in LilyPond: a list in
 which all elements are symbols.  LilyPond defines the predicate `symbol-list?`

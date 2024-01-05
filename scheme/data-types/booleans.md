@@ -29,7 +29,7 @@ but
 {% endlilypond %}
 
 
-#### `#t` vs. ”A true value”
+## `#t` vs. ”A true value”
 
 We have already encountered booleans in predicates, which are procedures that
 evaluate to `#t` or `#f`.  However, beside the two boolean *constants* there is

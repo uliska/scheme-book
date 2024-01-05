@@ -45,7 +45,7 @@ releases starting with the current 2.19 development line.  The current stable
 release 2.18.2 still requires this, but this is a topic that I won't discuss
 anymore in this book.
 
-### Scheme Functions
+## Scheme Functions
 
 As we've seen Scheme functions are created using the `define-scheme-function`
 keyword.  They evaluate the Scheme value (of arbitrary type) that the last
@@ -67,7 +67,7 @@ mySchemeFunction =
 This will call the scheme function and assign `Doubled Title | Doubled Title` to
 the `title` paper variable.
 
-### Music Functions
+## Music Functions
 
 Music functions are created using the `define-music-function` keyword.  Instead
 of arbitrary Scheme values they are expected to return a music expression, so
@@ -89,12 +89,13 @@ myMusicFunction =
   c'4
   \myMusicFunction #red
   d'8
-}{% endlilypond %}
+}
+{% endlilypond %}
 
 The  `#{ #}` is *one* Scheme expression, but as in any LilyPond music expression
 it can have many consecutive elements like the overrides in this example.
 
-### Void Functions
+## Void Functions
 
 Void functions are created using the `define-void-function` keyword.  Regardless
 of the value of the last expression in their body they do *not* return anything

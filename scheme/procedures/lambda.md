@@ -16,7 +16,7 @@ form.
 sequence.  As usual the value of the last expression will become the value of
 the procedure as a whole.  But let's consider this with an example:
 
-### Creating a procedure
+## Creating a procedure
 
 ```
 guile> (lambda (x) (+ x x))
@@ -47,7 +47,7 @@ The body of the procedure consists of the single expression `(+ x x)` which
 simply takes the argument `x` and adds it to itself.  The result of this
 “duplication” will become the value of the whole procedure.
 
-#### Parameter types
+### Parameter types
 
 Here we can see something in action that has been mentioned much earlier in the
 introduction to [data types](../index.html): Scheme does *not* impose any
@@ -63,7 +63,7 @@ interface that behaves differently depending on the type of arguments that are
 passed into it.  We will discuss this aspect in a [later
 chapter](parameter-types.html).
 
-### *Using* the Procedure
+## *Using* the Procedure
 
 Now we have created a procedure, but it doesn't *do* anything yet, so how can we
 make use of it? Correct, by *applying* it. Our expression *is* a procedure
@@ -100,7 +100,7 @@ Of course it rarely makes sense to create a procedure just for a single
 application, but for now we'll stick to that approach and dedicate a full
 chapter to the different ways of binding and reusing procedures.
 
-### Multiple Paramters and Expressions
+## Multiple Paramters and Expressions
 
 Our first procedure accepted a single argument, and its body also consisted of a
 single expression.  But of course multiple arguments and epxressions can be

@@ -51,7 +51,7 @@ random
 In all these cases we are dealing with names just as names, without any notion
 of a content the names might be referring to.
 
-#### Shorthand Notation
+## Shorthand Notation
 
 Using `quote` is the explicit way to quote objects, but far more often you will
 encounter and use the shorthand notation with a prepended single quote.

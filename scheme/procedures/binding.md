@@ -9,7 +9,7 @@ arguments to and return them from functions.  And just as with other objects we
 can bind procedures locally or globally.
 
 
-### Top-level Binding of Procedures
+## Top-level Binding of Procedures
 
 When a procedure has been bound to a global name it can be used from anywhere in
 the program, just like the built-in procedures or those provided by LilyPond.
@@ -43,7 +43,7 @@ ERROR: Wrong number of arguments to #<procedure my-proc (x y)>
 ABORT: (wrong-number-of-args)
 ```
 
-#### Alternative Syntax for Top-level Binding
+### Alternative Syntax for Top-level Binding
 
 The above example was the very “literal” binding of a `lambda` expression to a
 name, and this can be done with either of the three forms of `lambda`.  But
@@ -111,7 +111,7 @@ guile> (my-name 1 2 3 4 5)
 3
 ```
 
-### Local Binding of Procedures
+## Local Binding of Procedures
 
 We can bind procedures in a `let` block to reuse not only *values* but actual
 *functionality*.  Basically it is all the same as what we've seen about `lambda`

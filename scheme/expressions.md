@@ -35,7 +35,7 @@ examples the remainder of the line starting with `guile>` is the expression that
 you will enter at the command prompt, while the subsequent line(s) are the
 printout of the expression's evaluation.
 
-#### Literals
+## Literals
 
 The most basic type of expression is the literal value.  Try to enter a simple `5`:
 
@@ -73,7 +73,7 @@ The first three expressions were a *string* literal, a floating point *number*,
 and Scheme's notation of the boolean *true* value.  Don't worry, we'll dissect
 the strange notation of the last three expressions soon, in later chapters.
 
-#### Procedure Application
+## Procedure Application
 
 OK, just having literal values is not really exciting, so let's type in
 something more interesting:
@@ -88,7 +88,7 @@ with the operator written first, before the operands.  But actually this isn't
 the right perspective to understand the matter.  It is not just an example of a
 somewhat unusual syntax but rather the core of how Scheme works.
 
-##### Expressions Apply Procedures
+### Expressions Apply Procedures
 
 What we just typed in is not a “command” or “statement” but an *expression*, an
 expression whose value after evaluation is `29`.  Formally the expression we
@@ -120,7 +120,7 @@ basically it's the same thing as in the previous example.  What we perceive as a
 procedure and its arguments is in fact a list whose first element is a
 procedure.
 
-##### Applying Procedures to Multiple Arguments
+### Applying Procedures to Multiple Arguments
 
 It feels natural that `string-append` concatenates all of its “arguments”, but
 as said we are talking of applying the procedure to all remaining list elements.
@@ -138,7 +138,7 @@ finally divide the result (25) by 5.  This *is* quite different from most
 programming languages where one would have to explicitly use the operator for
 each subsequent division.
 
-##### Procedure “Type”
+### Procedure “Type”
 
 ```
 guile> (1 "2" 3.14)
@@ -165,7 +165,7 @@ this special kind of  `#< >` notation to tell us what it has read.
 `string-append` is a “primitive-procedure”, and `+` is a “primitive-generic”
 (which more or less is the same as a procedure).
 
-##### Procedure Names vs. Expressions
+### Procedure Names vs. Expressions
 
 The error in the previous section is caused by mixing procedures and
 expressions.  And it is typically encountered when the input code mistakenly
@@ -208,7 +208,7 @@ understandable.
 
 
 
-##### Summary:
+### Summary:
 
 Whenever you see an expression wrapped in parentheses you know
 that it is a list whose first element should be a procedure, which is then
@@ -219,7 +219,7 @@ the result of the procedure application.  This statement may seem trivial now,
 but keeping this in mind very firmly will help you significantly when having
 to disentangle complex nested structures in Scheme.
 
-#### Nested Expressions
+## Nested Expressions
 
 Every expression *evaluates to* something, and from Scheme's perspective this
 “something” then replaces the original expression.  Expressions can *contain*
@@ -279,7 +279,7 @@ frustrating - experiences new Scheme users have.  But when you strictly keep in
 mind that each pair of parens encloses one expression it is possible to keep the
 head over water.
 
-#### Some Preliminary Words on Program Flow
+## Some Preliminary Words on Program Flow
 
 So far we have only talked about single expressions.  But of course these don't
 make up complete programs.  A Scheme program consists of either a single
@@ -291,7 +291,7 @@ procedures, which will be covered later.  But any procedure can be understood as
 a single expression that - again - *evaluates* to its “result”.
 
 
-##### “Empty” Expressions
+### “Empty” Expressions
 
 It has to be said that there are expressions that do *not* evaluate to anything
 useful, and Scheme treats their value as `<unspecified>`.  These correspond to

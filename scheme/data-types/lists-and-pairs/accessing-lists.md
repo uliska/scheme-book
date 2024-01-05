@@ -4,7 +4,7 @@ Accessing lists and retrieving their elements is really similar to handling
 pairs - which seems quite natural as lists are built from pairs.  In this
 chapter we will discuss the basic procedures to access list elements.
 
-#### car/cdr Access
+## car/cdr Access
 
 In the previous chapter we have already seen how the `car` and the `cdr` of
 lists can be retrieved, and the `cadr` (and friends) shorthands are available for
@@ -46,7 +46,7 @@ As a mental exercise think about what the `cdar` of this list would be and why
 second question should be clear).
 
 
-#### Other Access Options
+## Other Access Options
 
 Scheme and Guile provide much more convenient ways to handle lists and their
 elements.  However, I think these should better be discussed after you are

@@ -69,7 +69,7 @@ true values.
 To get a better understanding of predicates and types let's write a few
 predicates as an exercise and investigate some characteristics.
 
-#### Specifying Type More Narrowly
+### Specifying Type More Narrowly
 
 start with something really simple: checking for a
 positive integer number:
@@ -107,7 +107,7 @@ we don't reimplement that check but use the existing `color?` predicate.  As the
 second subexpression of the `and` we build the sum of the second and third list
 elements and compare that to the first list element.
 
-#### Choice
+### Choice
 
 A common situation is that values with one out of several types can be accepted
 in a certain place.  For these cases there already are a number of `X-or-Y?`
@@ -137,7 +137,7 @@ predefined list:
 
 This would return `#t` when (and only when) applied to `'major` or `'minor`.
 
-#### Caveat: “True Values”
+### Caveat: “True Values”
 
 As a last example I'm going to show you a somewhat more involved example with a
 caveat: checking if an object is an association list that contains a specific

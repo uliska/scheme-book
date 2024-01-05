@@ -20,14 +20,14 @@ evaluated and its value returned.  The last clause may have the keyword `else`
 instead of a test, and if none of the previous tests succeeds this final else
 clause is evaluated.
 
-### Different Forms of clauses
+## Different Forms of clauses
 
 I just wrote that the clauses are evaluated if their test succeeds, but that's a
 little bit sloppy.  Actually there are three different forms of valid clauses,
 and the evaluation is different in each.  The point was mainly that the first
 successful test determines which clause is responsible for the return value.
 
-#### The Most Common Form
+### The Most Common Form
 
 The most common form for each clause is
 
@@ -64,7 +64,7 @@ value of the `let` expression as well.  Note that the `cond` expression itself
 is surrounded by parens as well as each individual clause, but the expressions
 *within* the clauses are not.
 
-#### Test Only
+### Test Only
 
 Another form for the clauses is
 
@@ -107,7 +107,7 @@ would succeed the `else` clause would create a pair with the same structure as
 the pairs returned by the other clauses, so anyone *using* the return value
 would surely get valid data.
 
-#### Apply a Procedure to the Test Result
+### Apply a Procedure to the Test Result
 
 A final form for the clauses is
 

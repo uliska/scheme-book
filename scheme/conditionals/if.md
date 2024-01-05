@@ -13,7 +13,7 @@ expression evaluates to the value of the chosen subexpression.  OK, let's
 clarify this with an example, but first of all we have to understand what “a
 true value” means.
 
-### ”True Values”
+## ”True Values”
 
 Scheme knows the literals `#t` for “true” and `#f` for “false”, which are
 returned by many comparing expressions and particularly all predicates:
@@ -45,7 +45,7 @@ true value”.  So the following expressions *all* have “a true value”:
 That means that whenever the expression `test` evaluates to *anything except
 `#f`* then `consequent` is evaluated, otherwise `alternative`.
 
-### Evaluating `if` expressions
+## Evaluating `if` expressions
 
 So here is the first concrete example
 
@@ -100,9 +100,9 @@ whole `let*` expression is the value of the `format` expression, which is then
 passed to the `display` procedure, which prints for example `The random number
 61 is odd` to the console.
 
-### Special Cases
+## Special Cases
 
-#### Unspecified Values
+### Unspecified Values
 
 The example discussed above is the default case for `if` expressions, but there
 are a number of special cases you should know about - because they can be both
@@ -124,7 +124,7 @@ The subexpression `(display "true")` will print something to the console but
 doesn't evaluate to anything, and consequently the whole expression *also* has
 an unspecified value.
 
-#### No alternative expression
+### No alternative expression
 
 The alternative expression can be omitted in an `if` expression, making it `(if
 test consequent)`.  This will work, but when the test fails (i.e. the

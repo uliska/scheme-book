@@ -49,7 +49,7 @@ point is that the type of an expression's elements is not enforced by Scheme,
 but that passing arguments of unsuitable type will cause errors during procedure
 application.
 
-#### Predicates
+## Predicates
 
 Of course it's no good idea to simply throw values at a procedure and wait for
 errors to occur or not.  In Scheme it is therefore very common to check the type
