@@ -54,7 +54,7 @@ automatically (yet), therefore authors should literally place
 at the bottom of each page.
 
 ```
-ne-music-function (parser location my-color)
+colorNote = (define-music-function (parser location my-color)
    (color?)
    #{
      \once \override NoteHead.color = #my-color
