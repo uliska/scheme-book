@@ -11,7 +11,7 @@ yet, but fortunately this isn't necessary anyway.  As association lists are so
 fundamental that Guile provides a number of specific procedures that can be used
 directly.
 
-### Guile's alist Retrieval Procedures
+## Guile's alist Retrieval Procedures
 
 Guile's procedures are documented in the
 [reference](https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Retrieving-Alist-Entries.html#Retrieving-Alist-Entries),
@@ -26,7 +26,7 @@ you should use the “q” variants of the procedures, `assq` and `assq-ref`.  I
 one point you should need other types as alist keys you have to get familiar
 with Scheme's concept of equality and Guile's/LilyPond's implementation of it.
 
-#### Different Return Targets
+### Different Return Targets
 
 `assq` and `assq-ref` differ in what they return for the match: `assq` returns
 the `(key . value)` pair for a match while `assq-ref` returns just the value.
@@ -97,7 +97,7 @@ the `cdr` from that (just try out `(cdr #f)`).  In order to properly handle the
 situation you will have to wait a little longer until you have digested
 [conditionals](../conditionals.html).
 
-#### Caveat: About the Uniqueness of alist Keys
+### Caveat: About the Uniqueness of alist Keys
 
 Both `assq` and `assq-ref` return the value for *the first* occurence of the key
 in the alist.  This is important because Scheme has no inherent way to guarantee

@@ -42,7 +42,7 @@ Sometimes it is necessary to produce a list resulting of all elements in a given
 list that match (or do not match) given criteria. This can be achieved through
 applying `filter` or `delete` to a list
 
-#### filter
+### filter
 
 ```
 (filter <predicate> <list>)
@@ -74,7 +74,7 @@ are numbers greater than 7” or “all list elements are pairs of numbers where
 `cdr` is greater than the `cdr`” you will want to use custom procedures, which
 you'll learn to write in [Defining Procedures](../scheme/procedures/index.html).
 
-#### delete and delete-duplicates
+### delete and delete-duplicates
 
 `delete` is somewhat like the opposite of `filter` in so far as it returns a
 copy of a list with all elements that *do not* match the given criteria. The

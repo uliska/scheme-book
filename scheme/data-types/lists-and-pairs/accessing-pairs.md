@@ -5,7 +5,7 @@ pairs, now we'll look into retrieving values from pairs.  This is not too
 complicated but it is necessary to have a firm understanding of it before
 proceeding to *lists*.
 
-#### Preparing the Ground
+## Preparing the Ground
 
 To start off let us create a few pairs for later reuse (so we don't have to
 re-type them in the REPL), at the same time taking the opportunity to practise
@@ -91,7 +91,7 @@ individual elements of pairs (and later lists).  For this Scheme provides the
 basic functions `car` and `cdr`.
 
 
-#### Basic Retrieval Procedures
+## Basic Retrieval Procedures
 
 The first element of a pair is retrieved using `car` and the second using `cdr`:
 
@@ -115,7 +115,7 @@ see them a lot in real code.  While the concept is as simple as that it is
 important to have a really firm understanding of it, as you will see the first
 complications already in the next two sections.
 
-#### Using Procecures Stored in a Pair
+## Using Procecures Stored in a Pair
 
 We had defined `e` to hold the procedure `random` as its first element, so
 retrieving this should give us the procedure. Testing in the REPL happens to
@@ -147,7 +147,7 @@ it *is*, be it an object, a compound data type - or a procedure.  We'll have a
 closer look at this in the next section.
 
 
-#### Nested Retrieval
+## Nested Retrieval
 
 As we have seen elements of a pair can be pairs themselves:
 

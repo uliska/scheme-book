@@ -79,7 +79,7 @@ last element of a proper list you don't really look for the “last element” b
 rather “the car of the last element”.  We will return to this issue in the next
 chapter.
 
-#### Constructing Lists As Chained Pairs
+### Constructing Lists As Chained Pairs
 
 If we take our definition literally that a list is a chain of pairs it should be
 possible to create a list that way as well:
@@ -103,7 +103,7 @@ guile> '(1 . (2 . (3 . (4 . ()))))
 (1 2 3 4)
 ```
 
-#### Improper Lists
+### Improper Lists
 
 What happens if the last element of a list is *not* a pair with an empty list as
 `car` but a simple value?  This is not hypothetical but easily achievable:
@@ -126,7 +126,7 @@ guile> '(1 2 3 . 4)
 (1 2 3 . 4)
 ```
 
-#### Concatenating Lists
+### Concatenating Lists
 
 Maybe this section is more about *working* with lists, but we insert it here
 because it provides more insight on how lists are structured internally.

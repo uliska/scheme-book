@@ -62,7 +62,7 @@ guile> (fraction? 1.25)
 ```
 
 
-#### Mixing Reals, Rationals and Integers
+### Mixing Reals, Rationals and Integers
 
 Above we said that arithmetic operations on integers produce integers again.
 However, if only *one* operand is a real number the whole expression gets
@@ -91,7 +91,7 @@ guile> (/ 4 3.0)
 1.33333333333333
 ```
 
-#### Exact and Inexact Numbers
+### Exact and Inexact Numbers
 
 Integers and fractions are always *exact* values that can be recalculated as
 often as desired, giving always the same result.  Real numbers on the other hand

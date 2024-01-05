@@ -1,6 +1,6 @@
 # Creating Quoted Lists and Pairs
 
-#### Lists
+## Lists
 
 As we have seen earlier it is not possible to directly write a list object
 because Scheme will try to apply the first element as a procedure to the
@@ -67,7 +67,7 @@ Or in LilyPond syntax:
 myList = #'(red green blue)
 {% endlilypond %}
 
-#### Pairs
+## Pairs
 
 The same is true for pairs.  You can't enter them literally but you have to
 either use the `cons` procedure or quote them through `quote` or `'`:
@@ -103,7 +103,7 @@ guile> (cons red blue)
 ((1.0 0.0 0.0) 0.0 0.0 1.0)
 ```
 
-#### Digression
+## Digression
 
 > But wait a minute, this last one does *not* look like a pair, isn't it?
 

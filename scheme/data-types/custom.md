@@ -23,7 +23,7 @@ in LilyPond's documentation.  To get our head around the idea of custom data
 types we will have a closer look at one data type that is defined by LilyPond:
 `color?`.
 
-#### Dissecting a Custom Data Type
+## Dissecting a Custom Data Type
 
 Applying a color to a score item is achieved by overriding its `color` property.
 (For more details about coloring please refer to the respective pages in

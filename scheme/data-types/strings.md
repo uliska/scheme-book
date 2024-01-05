@@ -10,7 +10,7 @@ specific aspects in this “data types” introduction.  You can find all detail
 about Scheme's string processing in the [Guile
 manual](https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Strings.html#Strings).
 
-### Writing Strings
+## Writing Strings
 
 In Scheme strings are always written using *double* quotes. Other languages
 understand single and double quotes interchangeably or with subtly different
@@ -54,7 +54,7 @@ mandatory:
 {% endlilypond %}
 
 
-### Escaping Special Characters
+## Escaping Special Characters
 
 There are a number of special characters that can't directly be inserted in
 strings, although Guile/LilyPond supports Unicode out-of-the-box.  Inserting
@@ -63,7 +63,7 @@ such non-standard characters is done using “escaping”: the parser sees an
 object.  In Scheme - just like in many other languages - this escape character
 is the `\` backslash.
 
-#### Quotation Marks
+### Quotation Marks
 
 The most obvious character that has to be escaped is the double quote itself -
 as the parser would interpret this as the *end* of the string by default:
@@ -84,7 +84,7 @@ message but will at least point you to the offending line of the input file.
 *perspective it is often better to use typographical (or "curly") quotes anyway
 *(e.g. `“English”`, `„Deutsch“` or `«Français»`).  These don't need escaping.
 
-#### The backslash
+### The backslash
 
 So if the backslash is used to indicate an escape character how can a backslash
 be used as a character in text?  Well, in a way that's self-explaining: through
@@ -94,7 +94,7 @@ escaping it. To print a backslash you have to escape it - with a backslash:
 \markup "This explains the \\markup command."
 {% endlilypond %}
 
-#### Arbitrary Escaped Characters
+### Arbitrary Escaped Characters
 
 There is a list of other special ASCII characters in the
 [reference](https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/String-Syntax.html#String-Syntax)

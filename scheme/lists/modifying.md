@@ -12,7 +12,7 @@ I will not cover all procedures on this page but try to explain the basic
 behaviour. But I strongly recommend you visit the two reference pages and
 familiarize yourself with what is available.
 
-#### Changing a Single List Element
+## Changing a Single List Element
 
 `list-set!` is the corresponding procedure to `list-ref`: `
 
@@ -35,7 +35,7 @@ guile> a
 
 You can see that if the list is bound to a variable the change is also persistent.
 
-#### Changing the Remainder of a List
+## Changing the Remainder of a List
 
 With `list-cdr-set!` you can change the n-th `cdr` of a list to something else,
 usually another list.

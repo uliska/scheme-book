@@ -1,6 +1,6 @@
 # Mapping List Elements
 
-#### Single Lists
+## Single Lists
 
 `map` “maps” the elements of a list to a new list, creating a new list from the
 results of the application of a procedure to each element.
@@ -72,7 +72,7 @@ Entering
 in the sandbox will show you a long list with (only) all grob names, which is
 very manageable but not that printable here on this page ...
 
-#### Multiple Lists
+## Multiple Lists
 
 Interestingly (and different from most other languages) `map`
 supports mapping of *multiple* lists.  In fact `map` does *not* accept exactly
@@ -106,7 +106,7 @@ guile> (map list '(1 2 3) '(4 5 6) '(7 8 9))
 ```
 
 
-#### Using `map` to Dissect Nested Lists
+## Using `map` to Dissect Nested Lists
 
 Let's complete this section with a slightly complex example making use of a
 `lambda` expression to transform a list to a different structure.
